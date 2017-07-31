@@ -1,11 +1,13 @@
 <template>
   <div id="mainPage">
-    <file-input v-on:readFile="readFile"></file-input>
+    <file-input v-on:readFile="parseToJson"></file-input>
     <line-chart v-if="hasFile"></line-chart>
   </div>
 </template>
 
 <script>
+  let papaparse = require('papaparse')
+
   import LineChart from '@/components/LineChart'
   import FileInput from '@/components/FileInput'
 
@@ -18,10 +20,19 @@
       }
     },
     methods: {
-      readFile () {
+      parseToJson (data) {
         this.hasFile = true
 
-        // read file
+        let self = this
+
+        let config = {
+          complete: function (result) {
+            self.fileData = result.data
+            console.log('Finish')
+          }
+        }
+
+        papaparse.parse(data, config)
 
         // draw chart
       }
