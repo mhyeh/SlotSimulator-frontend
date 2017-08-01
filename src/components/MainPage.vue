@@ -16,25 +16,45 @@
     data () {
       return {
         hasFile: false,
-        fileData: {}
+        fileData: []
       }
     },
     methods: {
       parseToJson (data) {
-        this.hasFile = true
-
         let self = this
 
         let config = {
           complete: function (result) {
-            self.fileData = result.data
-            console.log('Finish')
+            self.jsonToChartData(result.data).then(function () {
+              self.hesFile = true
+              console.log('Finish')
+            })
           }
         }
 
         papaparse.parse(data, config)
 
         // draw chart
+      },
+      jsonToChartData (dataTable) {
+        let self = this
+        return new Promise((resolve, reject) => {
+          for (let i = 0; i < dataTable[0].length; i++) {
+            let dataSet = {
+              lebel: dataTable[0][i],
+              data: []
+            }
+            self.fileData.push(dataSet)
+          }
+          for (let i = 1; i < dataTable.length; i++) {
+            for (let j = 0; j < dataTable[i].length; j++) {
+              self.fileData[j].data.push(dataTable[i][j])
+              if (i === dataTable.length - 1 && j === dataTable[i].length - 1) {
+                resolve()
+              }
+            }
+          }
+        })
       }
     },
     components: {LineChart, FileInput}
