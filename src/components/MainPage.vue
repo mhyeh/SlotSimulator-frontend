@@ -1,9 +1,11 @@
 <template>
   <div id="mainPage">
     <file-input v-on:readFile="parseToJson"></file-input>
-    <r-t-p v-if="hasFile" :dataTable="fileData"></r-t-p>
-    <total-net-win v-if="hasFile" :dataTable="fileData"></total-net-win>
-    <survival-rate v-if="hasFile" :dataTable="fileData"></survival-rate>
+    <div id="chart">
+      <r-t-p v-if="hasFile" :dataTable="fileData"></r-t-p>
+      <total-net-win v-if="hasFile" :dataTable="fileData"></total-net-win>
+      <survival-rate v-if="hasFile" :dataTable="fileData"></survival-rate>
+    </div>
   </div>
 </template>
 
@@ -32,34 +34,10 @@
             self.fileData = result.data
             self.hasFile = true
             console.log('Finish')
-            // self.jsonToChartData(result.data).then(function () {
-            //   self.hasFile = true
-            //   console.log('Finish')
-            // })
           }
         }
 
         papaparse.parse(data, config)
-      },
-      jsonToChartData (dataTable) {
-        let self = this
-        return new Promise((resolve, reject) => {
-          for (let i = 0; i < dataTable[0].length; i++) {
-            let dataSet = {
-              label: dataTable[0][i],
-              data: []
-            }
-            self.fileData.push(dataSet)
-          }
-          for (let i = 1; i < dataTable.length; i++) {
-            for (let j = 0; j < dataTable[i].length; j++) {
-              self.fileData[j].data.push(dataTable[i][j])
-              if (i === dataTable.length - 1 && j === dataTable[i].length - 1) {
-                resolve()
-              }
-            }
-          }
-        })
       }
     },
     components: {FileInput, RTP, TotalNetWin, SurvivalRate}
@@ -79,7 +57,8 @@
     height: 20%;
   }
 
-  line-chart {
+  #chart {
     height: 80%;
+    overflow-y: scroll;
   }
 </style>
