@@ -1,15 +1,19 @@
 <template>
   <div id="mainPage">
     <file-input v-on:readFile="parseToJson"></file-input>
-    <line-chart v-if="hasFile"></line-chart>
+    <r-t-p v-if="hasFile" :dataTable="fileData"></r-t-p>
+    <total-net-win v-if="hasFile" :dataTable="fileData"></total-net-win>
+    <survival-rate v-if="hasFile" :dataTable="fileData"></survival-rate>
   </div>
 </template>
 
 <script>
   let papaparse = require('papaparse')
 
-  import LineChart from '@/components/LineChart'
   import FileInput from '@/components/FileInput'
+  import RTP from '@/components/RTP'
+  import TotalNetWin from '@/components/TotalNetWin'
+  import SurvivalRate from '@/components/SurvivalRate'
 
   export default {
     name: 'mainPage',
@@ -25,23 +29,24 @@
 
         let config = {
           complete: function (result) {
-            self.jsonToChartData(result.data).then(function () {
-              self.hesFile = true
-              console.log('Finish')
-            })
+            self.fileData = result.data
+            self.hasFile = true
+            console.log('Finish')
+            // self.jsonToChartData(result.data).then(function () {
+            //   self.hasFile = true
+            //   console.log('Finish')
+            // })
           }
         }
 
         papaparse.parse(data, config)
-
-        // draw chart
       },
       jsonToChartData (dataTable) {
         let self = this
         return new Promise((resolve, reject) => {
           for (let i = 0; i < dataTable[0].length; i++) {
             let dataSet = {
-              lebel: dataTable[0][i],
+              label: dataTable[0][i],
               data: []
             }
             self.fileData.push(dataSet)
@@ -57,7 +62,7 @@
         })
       }
     },
-    components: {LineChart, FileInput}
+    components: {FileInput, RTP, TotalNetWin, SurvivalRate}
   }
 </script>
 
@@ -78,6 +83,3 @@
     height: 80%;
   }
 </style>
-
-
-
