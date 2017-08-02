@@ -8,7 +8,7 @@
               <v-icon>mdi-drawing blue--text</v-icon>
             </v-list-tile-avatar>
             <v-list-tile-content>
-              <v-list-tile-title>Toolbar</v-list-tile-title>
+              <v-list-tile-title>Chart Generator</v-list-tile-title>
             </v-list-tile-content>
             <v-list-tile-action>
               <v-btn icon @click.native.stop="mini = !mini" ripple>
@@ -32,7 +32,7 @@
     </v-navigation-drawer>
     <v-toolbar fixed class="indigo darken-4" dark>
       <v-toolbar-side-icon @click.native.stop="drawer = !drawer"></v-toolbar-side-icon>
-      <v-toolbar-title>Chart Generator</v-toolbar-title>
+      <v-toolbar-title>Analysis Chart</v-toolbar-title>
     </v-toolbar>
     <main>
       <v-container fluid>
@@ -70,6 +70,6 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
   @import '../node_modules/mdi/css/materialdesignicons.min.css';
 </style>
