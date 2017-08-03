@@ -1,9 +1,14 @@
 <template>
   <div id="RTP">
+    <div id="setting">
+    </div>
+    <div id="chart">
+    </div>
   </div>
 </template>
 
 <script>
+let Highcharts = require('highcharts')
 export default {
   props: ['dataTable'],
   data () {
@@ -34,6 +39,27 @@ export default {
         }
       })
     }
+  },
+  mounted () {
+    let self = this
+
+    Highcharts.chart(self.$el, {
+      chart: {
+        type: 'column'
+      },
+      title: {
+        text: 'RTP'
+      },
+      xAxis: {
+        type: 'caregory',
+        title: {
+          text: 'range'
+        }
+      },
+      credits: {
+        enabled: false
+      }
+    })
   }
 }
 </script>

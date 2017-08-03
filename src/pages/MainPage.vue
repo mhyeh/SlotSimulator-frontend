@@ -1,5 +1,5 @@
 <template>
-  <v-app id="app">
+  <v-app id="mainPage">
     <v-navigation-drawer absolute persistent light :mini-variant.sync="mini" v-model="drawer" overflow class="grey lighten-2">
       <v-toolbar flat class="grey lighten-2">
         <v-list class="pa-0">
@@ -54,7 +54,7 @@
 
 <script>
 export default {
-  name: 'app',
+  name: 'mainPage',
   data () {
     return {
       drawer: true,

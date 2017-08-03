@@ -1,6 +1,6 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import MainPage from '@/components/MainPage'
+import Home from '@/components/Home'
 import RTP from '@/components/RTP'
 import TotalNetWin from '@/components/TotalNetWin'
 import SurvivalRate from '@/components/SurvivalRate'
@@ -11,8 +11,8 @@ export default new Router({
   routes: [
     {
       path: '/',
-      name: 'MainPage',
-      component: MainPage
+      name: 'Home',
+      component: Home
     },
     {
       path: '/RTP',
