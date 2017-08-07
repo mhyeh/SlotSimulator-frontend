@@ -8,7 +8,7 @@ let config = {
 let client = axois.create(config)
 
 export default {
-  getAllProject: () => {
+  getAllProject: function () {
     return client.get('/project')
   }
 }

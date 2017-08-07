@@ -42,7 +42,7 @@
     </v-navigation-drawer>
     <v-toolbar fixed class="teal lighten-1" dark>
       <v-toolbar-side-icon @click.native.stop="drawer = !drawer"></v-toolbar-side-icon>
-      <v-toolbar-title>Analysis Chart</v-toolbar-title>
+      <v-toolbar-title>{{ title }}</v-toolbar-title>
     </v-toolbar>
     <main>
       <v-container fluid>
@@ -55,6 +55,7 @@
 <script>
 export default {
   name: 'mainPage',
+  props: ['title'],
   data () {
     return {
       drawer: true,
@@ -80,7 +81,7 @@ export default {
 </script>
 
 <style scoped>
-  @import '../node_modules/mdi/css/materialdesignicons.min.css';
+  @import '../../node_modules/mdi/css/materialdesignicons.min.css';
   v-navigation-drawer {
     overflow-y: scroll;
   }
