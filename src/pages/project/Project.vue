@@ -1,15 +1,14 @@
 <template>
-  <div id="startPage">
-    
+  <div id="Project">
+    <router-view></router-view>
   </div>
 </template>
 
 <script>
 export default {
-  name: 'startPage',
+  name: 'Project',
   data () {
     return {
-      project: []
     }
   },
   mounted () {

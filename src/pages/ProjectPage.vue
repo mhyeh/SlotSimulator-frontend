@@ -1,32 +1,22 @@
 <template>
-  <v-app id="projectPage">
-    <v-toolbar fixed class="teal lighten-1" dark>
-      <v-spacer></v-spacer>
-      <v-toolbar-title>{{ title }}</v-toolbar-title>
-      <v-spacer></v-spacer>
-      <v-menu :nudge-width="100">
-        <v-toolbar-title slot="activator">
-          <span>All</span>
-          <v-icon dark>arrow_drop_down</v-icon>
-        </v-toolbar-title>
-        <v-list>
-          <v-list-tile v-for="item in items" :key="item">
-            <v-list-tile-title v-text="item"></v-list-tile-title>
-          </v-list-tile>
-        </v-list>
-      </v-menu>
-      <v-spacer></v-spacer>
-    </v-toolbar>
-    <main>
-      <v-container fluid v-bind="{ [`grid-list-${size}`]: true }">
-      </v-container>
-    </main>
-  </v-app>
+  <div id="projectPage">
+    <v-layout>
+    <v-spacer></v-spacer>
+    <div class="projects pa-2" v-for="item in project" :key="item.id" @click="go(item)">
+      <v-card v-ripple>
+        <v-card-text>
+          <p>{{ item.id }}</p>
+          <v-card-title><h3>{{ item.name }}</h3></v-card-title>
+        </v-card-text>
+      </v-card>
+    </div>
+    <v-spacer></v-spacer>
+    </v-layout>
+  </div>
 </template>
 
 <script>
-import projectRepository from '../Repositories/ProjectRepository'
-
+import api from '../store/api'
 export default {
   name: 'projectPage',
   props: ['title'],
@@ -35,11 +25,29 @@ export default {
       project: []
     }
   },
-  mounted () {
-    let self = this
-    projectRepository.getAllProject().then(result => {
-      self.project = result
+  beforeMount () {
+    var self = this
+    api.getAllProject(self.$store.state.token).then(function (res) {
+      self.project = res.data
+      self.$store.commit('setProject', res.data)
     })
+  },
+  methods: {
+    go (item) {
+      this.$store.commit('chooseProject', item)
+      this.$router.push('/Project')
+    }
   }
 }
 </script>
+
+<style scoped>
+.projects {
+  display: inline-block;
+  vertical-align: top;
+}
+.projects:hover {
+  cursor: pointer
+}
+</style>
+
