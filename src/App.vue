@@ -5,20 +5,15 @@
         <v-spacer></v-spacer>
         <v-toolbar-title>{{ title }}</v-toolbar-title>
         <v-spacer></v-spacer>
-        <div v-if="isLogin === true">
-          <v-toolbar-side-icon class="hidden-md-and-up"></v-toolbar-side-icon>
-          <v-toolbar-items class="hidden-sm-and-down">
-            {{ name }}
-            <v-btn flat @click="logout">Log out</v-btn>
-          </v-toolbar-items>
-        </div>
-        <div v-else>
-          <v-toolbar-side-icon class="hidden-md-and-up"></v-toolbar-side-icon>
-          <v-toolbar-items class="hidden-sm-and-down">
-            <v-btn flat to="./login">Sign in</v-btn>
-            <v-btn flat to="./register">Sign up</v-btn>
-          </v-toolbar-items>
-        </div>
+        <v-toolbar-side-icon class="hidden-md-and-up"></v-toolbar-side-icon>
+        <v-toolbar-items v-if="isLogin === true" class="hidden-sm-and-down">
+          {{ name }}
+          <v-btn flat @click="logout">Log out</v-btn>
+        </v-toolbar-items>
+        <v-toolbar-items v-else class="hidden-sm-and-down">
+          <v-btn flat to="./login">Sign in</v-btn>
+          <v-btn flat to="./register">Sign up</v-btn>
+        </v-toolbar-items>
         <v-spacer></v-spacer>
       </v-toolbar>
     </template> 
@@ -49,6 +44,14 @@
             </v-list-tile-action>
             <v-list-tile-content>
               <v-list-tile-title>Home</v-list-tile-title>
+            </v-list-tile-content>
+          </v-list-tile>
+          <v-list-tile @click="generate('DashBoard')">
+            <v-list-tile-action>
+              <v-icon>dashboard</v-icon>
+            </v-list-tile-action>
+            <v-list-tile-content>
+              <v-list-tile-title>DashBoard</v-list-tile-title>
             </v-list-tile-content>
           </v-list-tile>
           <v-divider></v-divider>
@@ -142,6 +145,8 @@ export default {
   methods: {
     generate (title) {
       if (title === 'Home') {
+        this.$router.push('/Account/')
+      } else if (title === 'DashBoard') {
         this.$router.push('/Project/')
       } else {
         this.$router.push('/Project/' + title.replace(/\s+/g, ''))
