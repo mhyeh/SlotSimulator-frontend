@@ -101,7 +101,6 @@ export default {
         result.push([index, data[index]])
         this.categories.push(parseFloat(index))
       }
-      console.log(this.categories[0])
       // console.log(result)
       this.categories.sort((x, y) => {
         if (x > y) return 1

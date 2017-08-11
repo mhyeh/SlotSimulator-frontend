@@ -62,25 +62,24 @@
             </v-list-tile-content>
           </v-list-tile>
           <v-divider></v-divider>
-          <v-subheader class="grey--text text--darken-1">Payout Distribution</v-subheader>
-          <v-list-tile v-for="item in payoutDistribution" :key="item.title" @click="generate(item.title)">
-            <v-list-tile-action>
-              <v-icon>{{ item.icon }}</v-icon>
-            </v-list-tile-action>
-            <v-list-tile-content>
-              <v-list-tile-title>{{ item.title }}</v-list-tile-title>
-            </v-list-tile-content>
-          </v-list-tile>
-          <v-divider></v-divider>
-          <v-subheader class="grey--text text--darken-1">Player Experience Simulation</v-subheader>
-          <v-list-tile v-for="item in playerExpriences" :key="item.title" @click="generate(item.title)">
-            <v-list-tile-action>
-              <v-icon>{{ item.icon }}</v-icon>
-            </v-list-tile-action>
-            <v-list-tile-content>
-              <v-list-tile-title>{{ item.title }}</v-list-tile-title>
-            </v-list-tile-content>
-          </v-list-tile>
+          <v-list-group v-for="list in lists" :value="list.active" v-bind:key="list.title">
+            <v-list-tile slot="item">
+              <v-list-tile-action>
+                <v-icon>{{ list.action }}</v-icon>
+              </v-list-tile-action>
+              <v-list-tile-content>
+                <v-list-tile-title>{{ list.title }}</v-list-tile-title>
+              </v-list-tile-content>
+              <v-list-tile-action>
+                <v-icon>keyboard_arrow_down</v-icon>
+              </v-list-tile-action>
+            </v-list-tile>
+            <v-list-tile v-for="subItem in list.items" v-bind:key="subItem.title" @click="generate(list.title + '/' + subItem.title)">
+              <v-list-tile-content>
+                <v-list-tile-title>{{ subItem.title }}</v-list-tile-title>
+              </v-list-tile-content>
+            </v-list-tile>
+          </v-list-group>
         </v-list>
       </v-navigation-drawer>
       <v-toolbar fixed class="teal lighten-1" dark>
@@ -119,15 +118,34 @@ export default {
     return {
       title: 'Analysis Chart',
       drawer: true,
-      payoutDistribution: [
-        { title: 'Over All', icon: 'mdi-chart-bar' },
-        { title: 'Base Game', icon: 'mdi-chart-bar' },
-        { title: 'Free Game', icon: 'mdi-chart-bar' }
-      ],
-      playerExpriences: [
-        { title: 'RTP', icon: 'mdi-chart-bar' },
-        { title: 'Total Net Win', icon: 'mdi-chart-line' },
-        { title: 'Survival Rate', icon: 'mdi-table-large' }
+      lists: [
+        {
+          action: 'mdi-table-large',
+          title: 'Table',
+          items: [
+            { title: 'Over All' },
+            { title: 'Base Game' },
+            { title: 'Free Game' }
+          ]
+        },
+        {
+          action: 'mdi-chart-bar',
+          title: 'Payout Distribution',
+          items: [
+            { title: 'Over All' },
+            { title: 'Base Game' },
+            { title: 'Free Game' }
+          ]
+        },
+        {
+          action: 'mdi-chart-line',
+          title: 'Player Experience',
+          items: [
+            { title: 'RTP' },
+            { title: 'Total Net Win' },
+            { title: 'Survival Rate' }
+          ]
+        }
       ],
       mini: false,
       right: null,

@@ -8,6 +8,9 @@ import Register from '@/Pages/Register'
 
 import ProjectPage from '@/Pages/ProjectPage'
 
+import OverAllTable from      '@/Pages/project/OverAllTable'
+import BaseGameTable from     '@/Pages/project/BaseGameTable'
+import FreeGameTable from     '@/Pages/project/FreeGameTable'
 import Project from      '@/Pages/project/Project'
 import Home from         '@/Pages/project/Home'
 import OverAll from      '@/Pages/project/OverAll'
@@ -53,32 +56,47 @@ const router = new Router({
           component: Home
         },
         {
-          path: 'OverAll',
+          path: 'Table/OverAll',
+          name: 'OverAllTable',
+          component: OverAllTable
+        },
+        {
+          path: 'Table/BaseGame',
+          name: 'BaseGameTable',
+          component: BaseGameTable
+        },
+        {
+          path: 'Table/FreeGame',
+          name: 'FreeGameTable',
+          component: FreeGameTable
+        },
+        {
+          path: 'PayoutDistribution/OverAll',
           name: 'OverAll',
           component: OverAll
         },
         {
-          path: 'BaseGame',
+          path: 'PayoutDistribution/BaseGame',
           name: 'BaseGame',
           component: BaseGame
         },
         {
-          path: 'FreeGame',
+          path: 'PayoutDistribution/FreeGame',
           name: 'FreeGame',
           component: FreeGame
         },
         {
-          path: 'RTP',
+          path: 'PlayerExperience/RTP',
           name: 'RTP',
           component: RTP
         },
         {
-          path: 'TotalNetWin',
+          path: 'PlayerExperience/TotalNetWin',
           name: 'TotalNetWin',
           component: TotalNetWin
         },
         {
-          path: 'SurvivalRate',
+          path: 'PlayerExperience/SurvivalRate',
           name: 'SurvivalRate',
           component: SurvivalRate
         }

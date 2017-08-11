@@ -30,7 +30,6 @@ export default {
   beforeMount () {
     this.start()
     this.$store.watch(this.$store.getters.getChoose, function (n) {
-      console.log(1)
       this.start()
     }.bind(this))
   },

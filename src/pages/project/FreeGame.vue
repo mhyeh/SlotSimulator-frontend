@@ -51,7 +51,6 @@ export default {
       self.error = ''
       self.network = true
       api.freegame(self.$store.state.token, self.$store.state.projectId.id, self.size, '').then(function (res) {
-        console.log(res.data)
         self.freeGame = self.conertData(res.data)
         self.network = false
       }).catch(function (error) {
