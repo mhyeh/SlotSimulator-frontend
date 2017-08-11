@@ -6,7 +6,7 @@
       </v-card-text>
     </v-card>
     <div v-else-if="infoes !== null" class="infoes pa-2" v-for="(value, key) in infoes" :key="key">
-      <v-card v-ripple>
+      <v-card>
         <v-card-text>
           <p class="text-xs-center">{{ key }}</p>
           <v-card-title><h3 style="white-space: pre-line;">{{ value }}</h3></v-card-title>

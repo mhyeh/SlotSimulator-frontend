@@ -2,13 +2,20 @@
   <div id="projectPage">
     <v-layout>
     <v-spacer></v-spacer>
-    <div class="projects pa-2" v-for="item in project" :key="item.id" @click="go(item)">
+    <v-flex xs2 class="projects pa-2" v-for="item in project" :key="item.id" @click="go(item)">
       <v-card v-ripple>
         <v-card-text>
           <v-card-title><h3>{{ item.name }}</h3></v-card-title>
         </v-card-text>
       </v-card>
-    </div>
+    </v-flex>
+    <v-flex xs2 class="projects pa-2" @click="add">
+      <v-card v-ripple>
+        <v-card-text class="blue">
+          <v-card-title><h3>+</h3></v-card-title>
+        </v-card-text>
+      </v-card>
+    </v-flex>
     <v-spacer></v-spacer>
     </v-layout>
   </div>
@@ -35,6 +42,9 @@ export default {
     go (item) {
       this.$store.commit('chooseProject', item)
       this.$router.push('/Project')
+    },
+    add () {
+
     }
   }
 }
@@ -49,4 +59,3 @@ export default {
   cursor: pointer
 }
 </style>
-
