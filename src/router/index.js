@@ -3,20 +3,20 @@ import Router from 'vue-router'
 
 import StartPage   from '@/Pages/StartPage'
 
-import Login    from '@/components/Login'
-import Register from '@/components/Register'
+import Login    from '@/Pages/Login'
+import Register from '@/Pages/Register'
 
 import ProjectPage from '@/Pages/ProjectPage'
-import MainPage    from '@/Pages/MainPage'
 
-import Home from         '@/components/Home'
-import RTP from          '@/components/RTP'
-import TotalNetWin from  '@/components/TotalNetWin'
-import SurvivalRate from '@/components/SurvivalRate'
+import Project from      '@/Pages/project/Project'
+import Home from         '@/Pages/project/Home'
+import RTP from          '@/Pages/project/RTP'
+import TotalNetWin from  '@/Pages/project/TotalNetWin'
+import SurvivalRate from '@/Pages/project/SurvivalRate'
 
 Vue.use(Router)
 
-export default new Router({
+const router = new Router({
   routes: [
     {
       path: '/',
@@ -36,12 +36,13 @@ export default new Router({
     {
       path: '/Account',
       name: 'ProjectPage',
-      component: ProjectPage
+      component: ProjectPage,
+      meta: { requiresAuth: true }
     },
     {
       path: '/Project',
-      name: 'MainPage',
-      component: MainPage,
+      component: Project,
+      meta: { requiresAuth: true },
       children: [
         {
           path: '',
@@ -67,3 +68,21 @@ export default new Router({
     }
   ]
 })
+
+router.beforeEach((to, from, next) => {
+  if (to.matched.some(record => record.meta.requiresAuth)) {
+    // this route requires auth, check if logged in
+    // if not, redirect to login page.
+    if (router.app.$store === undefined || !router.app.$store.state.login) {
+      next({
+        path: '/login'
+      })
+    } else {
+      next()
+    }
+  } else {
+    next() // 确保一定要调用 next()
+  }
+})
+
+export default router
