@@ -30,17 +30,28 @@ export default {
   beforeMount () {
     this.start()
     this.$store.watch(this.$store.getters.getChoose, function (n) {
+      console.log(1)
       this.start()
     }.bind(this))
   },
   methods: {
     start () {
-      var self = this
-      self.infoes = null
+      let showDatas = ['type', 'block', 'thread', 'runTime', 'reels', 'rows', 'betCost']
+      let self = this
+      let data = {}
+      self.infoes = {
+        type: 0
+      }
       self.error = ''
-      api.getProject(self.$store.state.token, self.$store.state.projectId.id).then(function (res) {
-        self.infoes = res.data
-      }).catch(function (error) {
+      api.getProject(self.$store.state.token, self.$store.state.projectId.id).then(res => {
+        data = res.data
+        return api.getProjectType(self.$store.state.token, data.typeId)
+      }).then(res => {
+        data.type = res.data.name
+        for (let showData of showDatas) {
+          self.infoes[showData] = data[showData]
+        }
+      }).catch(error => {
         console.log(error)
         self.error = error.message
       })

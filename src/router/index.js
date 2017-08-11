@@ -10,6 +10,9 @@ import ProjectPage from '@/Pages/ProjectPage'
 
 import Project from      '@/Pages/project/Project'
 import Home from         '@/Pages/project/Home'
+import OverAll from      '@/Pages/project/OverAll'
+import BaseGame from     '@/Pages/project/BaseGame'
+import FreeGame from     '@/Pages/project/FreeGame'
 import RTP from          '@/Pages/project/RTP'
 import TotalNetWin from  '@/Pages/project/TotalNetWin'
 import SurvivalRate from '@/Pages/project/SurvivalRate'
@@ -48,6 +51,21 @@ const router = new Router({
           path: '',
           name: 'Home',
           component: Home
+        },
+        {
+          path: 'OverAll',
+          name: 'OverAll',
+          component: OverAll
+        },
+        {
+          path: 'BaseGame',
+          name: 'BaseGame',
+          component: BaseGame
+        },
+        {
+          path: 'FreeGame',
+          name: 'FreeGame',
+          component: FreeGame
         },
         {
           path: 'RTP',

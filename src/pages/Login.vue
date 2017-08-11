@@ -32,10 +32,15 @@ export default {
   },
   methods: {
     login () {
-      var self = this
+      let self = this
+      let token
       if (self.account !== '' && self.password !== '') {
         api.login(self.account, self.password).then(function (res) {
-          self.$store.commit('login', res.data.token)
+          token = res.data.token
+          return api.getUserInfo(token)
+        }).then(res => {
+          self.$emit('login', res.data.name)
+          self.$store.commit('login', token)
           self.$router.replace('/Account')
         }).catch((res) => {
           console.log(res)

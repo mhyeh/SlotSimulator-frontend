@@ -10,12 +10,6 @@
             <v-flex xs3 class="pl-4">
               <v-text-field class="pa-0" :max="4000000" :min="1" v-model="size" type="number" @change="change" :disabled="network"></v-text-field>
             </v-flex>
-            <v-flex xs9>
-              <v-slider class="pa-0" label="range" :max="1000" :min="1" v-model="range" @input="change" :disabled="network"></v-slider>
-            </v-flex>
-            <v-flex xs3 class="pl-4">
-              <v-text-field class="pa-0" :max="1000" :min="1" v-model="range" type="number" @change="change" :disabled="network"></v-text-field>
-            </v-flex>
           </v-layout>
         </v-container>
       </v-card-text>
@@ -24,7 +18,7 @@
     <v-card>
       <v-card-text>
         <p v-if="error !== ''" class="ma-0">{{ error }}</p>
-        <high-chart v-else-if="totalNetWin.length !== 0" :options="defaultOption(totalNetWin, categories)" style="display: flex"></high-chart>
+        <high-chart v-else-if="overAll.length !== 0" :options="defaultOption(overAll, categories)" style="display: flex"></high-chart>
         <v-progress-circular indeterminate class="primary--text" v-else :size="50" style="width:100%;"></v-progress-circular>
       </v-card-text>
     </v-card>
@@ -37,10 +31,11 @@ import _ from 'lodash'
 export default {
   data () {
     return {
-      totalNetWin: [],
+      overAll: [],
       categories: [],
       size: 1000000,
-      range: 1000,
+      min: 0,
+      max: 0,
       error: '',
       network: false
     }
@@ -54,11 +49,12 @@ export default {
   methods: {
     start () {
       let self = this
-      self.totalNetWin = []
+      self.overAll = []
       self.error = ''
       self.network = true
-      api.totalNetWin(self.$store.state.token, self.$store.state.projectId.id, self.size, self.range).then(function (res) {
-        self.totalNetWin = self.conertData(res.data)
+      api.overall(self.$store.state.token, self.$store.state.projectId.id, self.size, '').then(function (res) {
+        console.log(res.data)
+        self.overAll = self.conertData(res.data)
         self.network = false
       }).catch(function (error) {
         console.log(error)
@@ -73,7 +69,7 @@ export default {
           zoomType: 'x'
         },
         title: {
-          text: 'Total Net Win'
+          text: 'Over All Distribution'
         },
         xAxis: {
           categories: categories
@@ -98,17 +94,18 @@ export default {
       let result = []
       this.categories = []
       for (let index in data) {
-        result.push([index, data[index]])
-        this.categories.push(parseFloat(index))
+        if (data[index] !== 0) {
+          result.push([index, data[index]])
+          this.categories.push(parseFloat(index))
+        }
       }
-      console.log(this.categories[0])
       // console.log(result)
       this.categories.sort((x, y) => {
         if (x > y) return 1
         else if (x < y) return -1
         else return 0
       })
-      result.sort((x, y) => {
+      result.sort(function (x, y) {
         if (parseFloat(x[0]) > parseFloat(y[0])) return 1
         else if (parseFloat(x[0]) < parseFloat(y[0])) return -1
         else return 0
@@ -123,7 +120,7 @@ export default {
 </script>
 
 <style scoped>
-.inline > * {
+.inline>* {
   display: inline-block;
   vertical-align: top;
 }

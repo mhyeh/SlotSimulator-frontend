@@ -5,11 +5,20 @@
         <v-spacer></v-spacer>
         <v-toolbar-title>{{ title }}</v-toolbar-title>
         <v-spacer></v-spacer>
-        <v-toolbar-side-icon class="hidden-md-and-up"></v-toolbar-side-icon>
-        <v-toolbar-items class="hidden-sm-and-down">
-          <v-btn flat to="./login">Sign in</v-btn>
-          <v-btn flat to="./register">Sign up</v-btn>
-        </v-toolbar-items>
+        <div v-if="isLogin === true">
+          <v-toolbar-side-icon class="hidden-md-and-up"></v-toolbar-side-icon>
+          <v-toolbar-items class="hidden-sm-and-down">
+            {{ name }}
+            <v-btn flat @click="logout">Log out</v-btn>
+          </v-toolbar-items>
+        </div>
+        <div v-else>
+          <v-toolbar-side-icon class="hidden-md-and-up"></v-toolbar-side-icon>
+          <v-toolbar-items class="hidden-sm-and-down">
+            <v-btn flat to="./login">Sign in</v-btn>
+            <v-btn flat to="./register">Sign up</v-btn>
+          </v-toolbar-items>
+        </div>
         <v-spacer></v-spacer>
       </v-toolbar>
     </template> 
@@ -40,6 +49,16 @@
             </v-list-tile-action>
             <v-list-tile-content>
               <v-list-tile-title>Home</v-list-tile-title>
+            </v-list-tile-content>
+          </v-list-tile>
+          <v-divider></v-divider>
+          <v-subheader class="grey--text text--darken-1">Payout Distribution</v-subheader>
+          <v-list-tile v-for="item in payoutDistribution" :key="item.title" @click="generate(item.title)">
+            <v-list-tile-action>
+              <v-icon>{{ item.icon }}</v-icon>
+            </v-list-tile-action>
+            <v-list-tile-content>
+              <v-list-tile-title>{{ item.title }}</v-list-tile-title>
             </v-list-tile-content>
           </v-list-tile>
           <v-divider></v-divider>
@@ -77,7 +96,7 @@
     
     <main>
       <v-container fluid>
-        <router-view></router-view>
+        <router-view v-on:login="login"></router-view>
       </v-container>
     </main>
   </v-app>
@@ -90,13 +109,20 @@ export default {
     return {
       title: 'Analysis Chart',
       drawer: true,
+      payoutDistribution: [
+        { title: 'Over All', icon: 'mdi-chart-bar' },
+        { title: 'Base Game', icon: 'mdi-chart-bar' },
+        { title: 'Free Game', icon: 'mdi-chart-bar' }
+      ],
       playerExpriences: [
         { title: 'RTP', icon: 'mdi-chart-bar' },
         { title: 'Total Net Win', icon: 'mdi-chart-line' },
         { title: 'Survival Rate', icon: 'mdi-table-large' }
       ],
       mini: false,
-      right: null
+      right: null,
+      isLogin: false,
+      name: ''
     }
   },
   computed: {
@@ -106,6 +132,12 @@ export default {
     projects: function () {
       return this.$store.state.projects
     }
+    // isLogin: function () {
+    //   return localStorage.getItem('isLogin')
+    // },
+    // name: function () {
+    //   return localStorage.getItem('name')
+    // }
   },
   methods: {
     generate (title) {
@@ -117,6 +149,20 @@ export default {
     },
     changeProject (item) {
       this.$store.commit('chooseProject', item)
+    },
+    login (name) {
+      localStorage.setItem('isLogin', true)
+      localStorage.setItem('name', name)
+      // this.isLogin
+      this.isLogin = localStorage.getItem('isLogin')
+      this.name = localStorage.getItem('name')
+    },
+    logout () {
+      localStorage.setItem('isLogin', false)
+      localStorage.setItem('name', '')
+      this.$router.push('/')
+      this.isLogin = localStorage.getItem('isLogin')
+      this.name = localStorage.getItem('name')
     }
   }
 }
