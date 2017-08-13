@@ -96,7 +96,11 @@ export default {
         credits: {
           enabled: false
         },
+        tooltip: {
+          pointFormat: '{series.name}: <b>{point.y}</b>'
+        },
         series: [{
+          name: 'Times',
           data: datas
         }]
       }

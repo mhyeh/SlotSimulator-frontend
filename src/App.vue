@@ -27,7 +27,7 @@
     <template v-else>
       <v-navigation-drawer absolute persistent light :mini-variant.sync="mini" v-model="drawer" overflow class="grey lighten-2">
         <v-toolbar flat class="grey lighten-2">
-          <v-list class="pa-0">
+          <v-list class="pa-0 grey lighten-2">
             <v-list-tile avatar tag="div">
               <v-list-tile-avatar>
                 <v-icon>mdi-drawing grey lighten-2 blue--text</v-icon>
@@ -43,7 +43,7 @@
             </v-list-tile>
           </v-list>
         </v-toolbar>
-        <v-list class="pt-0" dense>
+        <v-list class="pt-0 grey lighten-2" dense>
           <v-divider></v-divider>
           <v-list-tile @click="generate('Home')">
             <v-list-tile-action>
@@ -74,7 +74,7 @@
                 <v-icon>keyboard_arrow_down</v-icon>
               </v-list-tile-action>
             </v-list-tile>
-            <v-list-tile v-for="subItem in list.items" v-bind:key="subItem.title" @click="generate(list.title + '/' + subItem.title)">
+            <v-list-tile v-for="subItem in list.items" v-bind:key="subItem.title" @click="generate(list.title + '/' + subItem.title)" class="grey lighten-2">
               <v-list-tile-content>
                 <v-list-tile-title>{{ subItem.title }}</v-list-tile-title>
               </v-list-tile-content>

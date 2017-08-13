@@ -69,6 +69,15 @@ export default {
   getProjectType: function (token, id) {
     return client.get('/project/type/' + id, { headers: {'Authorization': token} })
   },
+  overallTable: function (token, id) {
+    return client.get('/table/' + id + '/overAll', { headers: {'Authorization': token} })
+  },
+  basegameTable: function (token, id) {
+    return client.get('/table/' + id + '/baseGame', { headers: {'Authorization': token} })
+  },
+  freegameTable: function (token, id) {
+    return client.get('/table/' + id + '/freeGame', { headers: {'Authorization': token} })
+  },
   overall: function (token, id, size, distribution) {
     return client.get('/chart/' + id + '/overAll?size=' + size + '&distribution=' + JSON.stringify(_distribution), { headers: {'Authorization': token} })
   },

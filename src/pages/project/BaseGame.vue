@@ -50,10 +50,10 @@ export default {
       self.baseGame = []
       self.error = ''
       self.network = true
-      api.basegame(self.$store.state.token, self.$store.state.projectId.id, self.size, '').then(function (res) {
+      api.basegame(self.$store.state.token, self.$store.state.projectId.id, self.size, '').then(res => {
         self.baseGame = self.conertData(res.data)
         self.network = false
-      }).catch(function (error) {
+      }).catch(error => {
         console.log(error)
         self.error = error.message
         self.network = false
@@ -82,7 +82,11 @@ export default {
         credits: {
           enabled: false
         },
+        tooltip: {
+          pointFormat: '{series.name}: <b>{point.y}</b>'
+        },
         series: [{
+          name: 'Times',
           data: datas
         }]
       }
@@ -102,7 +106,7 @@ export default {
         else if (x < y) return -1
         else return 0
       })
-      result.sort(function (x, y) {
+      result.sort((x, y) => {
         if (parseFloat(x[0]) > parseFloat(y[0])) return 1
         else if (parseFloat(x[0]) < parseFloat(y[0])) return -1
         else return 0
