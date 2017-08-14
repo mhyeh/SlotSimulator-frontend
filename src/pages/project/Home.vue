@@ -1,20 +1,20 @@
 <template>
-  <div id="home">
+  <v-layout row wrap>
     <v-card v-if="error !== ''">
       <v-card-text>
         {{ error }}
       </v-card-text>
     </v-card>
-    <div v-else-if="infoes !== null" class="infoes pa-2" v-for="(value, key) in infoes" :key="key">
+    <v-flex v-else-if="infoes.type !== ''" class="infoes pa-2" v-for="(value, key) in infoes" :key="key">
       <v-card>
         <v-card-text>
-          <p class="text-xs-center">{{ key }}</p>
+          {{ key }}
           <v-card-title><h3 style="white-space: pre-line;">{{ value }}</h3></v-card-title>
         </v-card-text>
       </v-card>
-    </div>
+    </v-flex>
     <v-progress-circular indeterminate class="primary--text" v-else :size="50" style="width:100%;"></v-progress-circular>
-  </div>
+  </v-layout>
 </template>
 
 <script>
@@ -23,7 +23,7 @@ export default {
   name: 'home',
   data () {
     return {
-      infoes: null,
+      infoes: {},
       error: ''
     }
   },
@@ -39,7 +39,7 @@ export default {
       let self = this
       let data = {}
       self.infoes = {
-        type: 0
+        type: ''
       }
       self.error = ''
       api.getProject(self.$store.state.token, self.$store.state.projectId.id).then(res => {

@@ -2,14 +2,14 @@
   <v-layout row wrap>
     <p><h5>{{ name }}</h5></p>
     <v-layout row wrap>
-      <div class="infoes pa-2" v-for="info of getInfo" :key="info[0]">
+      <v-flex class="infoes pa-2" v-for="info of getInfo" :key="info[0]">
         <v-card>
           <v-card-text>
-            <p class="text-xs-center">{{ info[0] }}</p>
+            {{ info[0] }}
             <v-card-title><h5 style="white-space: pre-line;">{{ info[1] }}</h5></v-card-title>
           </v-card-text>
         </v-card>
-      </div>
+      </v-flex>
     </v-layout>
     <v-data-table
       v-bind:headers="getHeader"
