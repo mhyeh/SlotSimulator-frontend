@@ -36,7 +36,6 @@
     },
     computed: {
       getInfo () {
-        console.log(this.options)
         let result = []
         for (let i = 2; i < 12; i++) {
           result.push(this.options[i])

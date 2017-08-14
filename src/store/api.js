@@ -92,6 +92,9 @@ export default {
   },
   totalNetWin: function (token, id, size, range) {
     return client.get('/chart/' + id + '/totalNetWin?size=' + size + '&range=' + range, { headers: {'Authorization': token} })
+  },
+  survivalRate: function (token, id, size) {
+    return client.get('/chart/' + id + '/survivalRate?size=' + size, { headers: {'Authorization': token} })
   }
 }
 
