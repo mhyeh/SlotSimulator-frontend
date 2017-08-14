@@ -4,7 +4,7 @@
       <v-card>
         <v-card-text>
           <p v-if="error !== ''" class="ma-0">{{ error }}</p>
-          <tables v-else-if="baseGameTheory.length !== 0" :options="baseGameTheory" style="display: flex"></tables>
+          <tables v-else-if="baseGameTheory.length !== 0" :options="baseGameTheory" name="Base Game Theory" style="display: flex"></tables>
           <v-progress-circular indeterminate class="primary--text" v-else :size="50" style="width:100%;"></v-progress-circular>
         </v-card-text>
       </v-card>
@@ -13,7 +13,7 @@
       <v-card>
         <v-card-text>
           <p v-if="error !== ''" class="ma-0">{{ error }}</p>
-          <tables v-else-if="baseGame.length !== 0" :options="baseGame" style="display: flex"></tables>
+          <tables v-else-if="baseGame.length !== 0" :options="baseGame" name="Base Game Theory" style="display: flex"></tables>
           <v-progress-circular indeterminate class="primary--text" v-else :size="50" style="width:100%;"></v-progress-circular>
         </v-card-text>
       </v-card>
@@ -41,8 +41,8 @@ export default {
     start () {
       let self = this
       api.basegameTable(self.$store.state.token, self.$store.state.projectId.id).then(res => {
-        self.baseGame       = res.simulation
-        self.baseGameTheory = res.theory
+        self.baseGame       = res.data.simulation
+        self.baseGameTheory = res.data.theory
 
         papaparse.parse(self.baseGame, {
           complete: function (result) {

@@ -105,7 +105,7 @@
     
     <main>
       <v-container fluid>
-        <router-view v-on:login="login"></router-view>
+        <router-view v-on:login="login" id="main"></router-view>
       </v-container>
     </main>
   </v-app>
@@ -198,9 +198,15 @@ export default {
 }
 </script>
 
-<style scoped>
+<style soped>
   @import '../node_modules/mdi/css/materialdesignicons.min.css';
-  v-navigation-drawer {
-    overflow-y: scroll;
+
+  #main {
+    height: 90vh;
+    overflow-y: scroll !important;
+  }
+
+  #main::-webkit-scrollbar { 
+    display: none; 
   }
 </style>

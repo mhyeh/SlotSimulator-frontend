@@ -4,7 +4,7 @@
       <v-card>
         <v-card-text>
           <p v-if="error !== '{}'" class="ma-0">{{ error }}</p>
-          <tables v-else-if="overAllTheory.length !== 0" :options="overAllTheory" style="display: flex"></tables>
+          <tables v-else-if="overAllTheory.length !== 0" :options="overAllTheory" name="Over All Theory" style="display: flex"></tables>
           <v-progress-circular indeterminate class="primary--text" v-else :size="50" style="width:100%;"></v-progress-circular>
         </v-card-text>
       </v-card>
@@ -13,7 +13,7 @@
       <v-card>
         <v-card-text>
           <p v-if="error !== ''" class="ma-0">{{ error }}</p>
-          <tables v-else-if="overAll.length !== 0" :options="overAll" style="display: flex"></tables>
+          <tables v-else-if="overAll.length !== 0" :options="overAll" name="Over All Theory" style="display: flex"></tables>
           <v-progress-circular indeterminate class="primary--text" v-else :size="50" style="width:100%;"></v-progress-circular>
         </v-card-text>
       </v-card>
@@ -41,8 +41,8 @@ export default {
     start () {
       let self = this
       api.overallTable(self.$store.state.token, self.$store.state.projectId.id).then(res => {
-        self.overAll       = res.simulation
-        self.overAllTheory = res.theory
+        self.overAll       = res.data.simulation
+        self.overAllTheory = res.data.theory
 
         papaparse.parse(self.overAll, {
           complete: function (result) {

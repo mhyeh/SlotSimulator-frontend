@@ -4,7 +4,7 @@
       <v-card>
         <v-card-text>
           <p v-if="error !== ''" class="ma-0">{{ error }}</p>
-          <tables v-else-if="freeGameTheory.length !== 0" :options="freeGameTheory" style="display: flex"></tables>
+          <tables v-else-if="freeGameTheory.length !== 0" :options="freeGameTheory" name="Free Game Theory" style="display: flex"></tables>
           <v-progress-circular indeterminate class="primary--text" v-else :size="50" style="width:100%;"></v-progress-circular>
         </v-card-text>
       </v-card>
@@ -13,7 +13,7 @@
       <v-card>
         <v-card-text>
           <p v-if="error !== ''" class="ma-0">{{ error }}</p>
-          <tables v-else-if="freeGame.length !== 0" :options="freeGame" style="display: flex"></tables>
+          <tables v-else-if="freeGame.length !== 0" :options="freeGame" name="Free Game Simulation" style="display: flex"></tables>
           <v-progress-circular indeterminate class="primary--text" v-else :size="50" style="width:100%;"></v-progress-circular>
         </v-card-text>
       </v-card>
@@ -41,9 +41,8 @@ export default {
     start () {
       let self = this
       api.freegameTable(self.$store.state.token, self.$store.state.projectId.id).then(res => {
-        self.freeGame       = res.simulation
-        self.freeGameTheory = res.theory
-
+        self.freeGame       = res.data.simulation
+        self.freeGameTheory = res.data.theory
         papaparse.parse(self.freeGame, {
           complete: function (result) {
             self.freeGame = result.data
