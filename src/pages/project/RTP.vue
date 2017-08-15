@@ -17,7 +17,7 @@
               <v-text-field class="pa-0" :max="400" :min="1" v-model="step" type="number" @change="change" :disabled="network"></v-text-field>
             </v-flex>
             <v-flex xs9>
-              <v-slider class="pa-0" label="range" :max="100" :min="1" v-model="range" @input="change" :disabled="network"></v-slider>
+              <v-slider class="pa-0" label="range(%)" :max="100" :min="1" v-model="range" @input="change" :disabled="network"></v-slider>
             </v-flex>
             <v-flex xs3 class="pl-4">
               <v-text-field class="pa-0" :max="100" :min="1" v-model="range" type="number" @change="change" :disabled="network"></v-text-field>
@@ -45,9 +45,9 @@ export default {
     return {
       rtp: [],
       categories: [],
-      size: 1000000,
-      step: 100,
-      range: 10,
+      size: 4000000,
+      step: 400,
+      range: 20,
       error: '',
       network: false
     }
@@ -76,8 +76,7 @@ export default {
     defaultOption (datas, categories) {
       return {
         chart: {
-          type: 'column',
-          zoomType: 'x'
+          type: 'spline'
         },
         title: {
           text: 'RTP'
@@ -113,6 +112,11 @@ export default {
         this.categories.push(parseFloat(index))
       }
       // console.log(result)
+      this.categories.sort((x, y) => {
+        if (x > y) return 1
+        else if (x < y) return -1
+        else return 0
+      })
       result.sort(function (x, y) {
         if (parseFloat(x[0]) > parseFloat(y[0])) return 1
         else if (parseFloat(x[0]) < parseFloat(y[0])) return -1
