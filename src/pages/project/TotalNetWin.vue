@@ -69,8 +69,7 @@ export default {
     defaultOption (datas, categories) {
       return {
         chart: {
-          type: 'column',
-          zoomType: 'x'
+          type: 'spline'
         },
         title: {
           text: 'Total Net Win'
