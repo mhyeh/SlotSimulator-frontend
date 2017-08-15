@@ -1,24 +1,24 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 
-import StartPage   from '@/Pages/StartPage'
+import StartPage   from '@/pages/StartPage'
 
-import Login    from '@/Pages/Login'
-import Register from '@/Pages/Register'
+import Login    from '@/pages/Login'
+import Register from '@/pages/Register'
 
-import ProjectPage from '@/Pages/ProjectPage'
+import ProjectPage from '@/pages/ProjectPage'
 
-import OverAllTable from      '@/Pages/project/OverAllTable'
-import BaseGameTable from     '@/Pages/project/BaseGameTable'
-import FreeGameTable from     '@/Pages/project/FreeGameTable'
-import Project from      '@/Pages/project/Project'
-import Home from         '@/Pages/project/Home'
-import OverAll from      '@/Pages/project/OverAll'
-import BaseGame from     '@/Pages/project/BaseGame'
-import FreeGame from     '@/Pages/project/FreeGame'
-import RTP from          '@/Pages/project/RTP'
-import TotalNetWin from  '@/Pages/project/TotalNetWin'
-import SurvivalRate from '@/Pages/project/SurvivalRate'
+import OverAllTable from      '@/pages/project/OverAllTable'
+import BaseGameTable from     '@/pages/project/BaseGameTable'
+import FreeGameTable from     '@/pages/project/FreeGameTable'
+import Project from      '@/pages/project/Project'
+import Home from         '@/pages/project/Home'
+import OverAll from      '@/pages/project/OverAll'
+import BaseGame from     '@/pages/project/BaseGame'
+import FreeGame from     '@/pages/project/FreeGame'
+import RTP from          '@/pages/project/RTP'
+import TotalNetWin from  '@/pages/project/TotalNetWin'
+import SurvivalRate from '@/pages/project/SurvivalRate'
 
 Vue.use(Router)
 
