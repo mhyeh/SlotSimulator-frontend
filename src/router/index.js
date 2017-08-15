@@ -56,32 +56,32 @@ const router = new Router({
           component: Home
         },
         {
-          path: 'Table/OverAll',
+          path: 'ParSheet/OverAll',
           name: 'OverAllTable',
           component: OverAllTable
         },
         {
-          path: 'Table/BaseGame',
+          path: 'ParSheet/BaseGame',
           name: 'BaseGameTable',
           component: BaseGameTable
         },
         {
-          path: 'Table/FreeGame',
+          path: 'ParSheet/BonusGame',
           name: 'FreeGameTable',
           component: FreeGameTable
         },
         {
-          path: 'PayoutDistribution/OverAll',
+          path: 'WinsDistribution/OverAll',
           name: 'OverAll',
           component: OverAll
         },
         {
-          path: 'PayoutDistribution/BaseGame',
+          path: 'WinsDistribution/BaseGame',
           name: 'BaseGame',
           component: BaseGame
         },
         {
-          path: 'PayoutDistribution/FreeGame',
+          path: 'WinsDistribution/BonusGame',
           name: 'FreeGame',
           component: FreeGame
         },

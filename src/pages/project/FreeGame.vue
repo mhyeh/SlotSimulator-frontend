@@ -66,7 +66,7 @@ export default {
           zoomType: 'x'
         },
         title: {
-          text: 'Free Game Distribution'
+          text: 'Wins Distribution (Bonus Game)'
         },
         xAxis: {
           categories: categories

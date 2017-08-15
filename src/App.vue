@@ -121,20 +121,20 @@ export default {
       lists: [
         {
           action: 'mdi-table-large',
-          title: 'Table',
+          title: 'Par Sheet',
           items: [
             { title: 'Over All' },
             { title: 'Base Game' },
-            { title: 'Free Game' }
+            { title: 'Bonus Game' }
           ]
         },
         {
           action: 'mdi-chart-bar',
-          title: 'Payout Distribution',
+          title: 'Wins Distribution',
           items: [
             { title: 'Over All' },
             { title: 'Base Game' },
-            { title: 'Free Game' }
+            { title: 'Bonus Game' }
           ]
         },
         {

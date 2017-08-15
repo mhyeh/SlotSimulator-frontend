@@ -68,7 +68,7 @@ export default {
           zoomType: 'x'
         },
         title: {
-          text: 'Over All Distribution'
+          text: 'Wins Distribution (Over All)'
         },
         xAxis: {
           categories: categories

@@ -4,7 +4,7 @@
       <v-card>
         <v-card-text>
           <p v-if="error !== '{}'" class="ma-0">{{ error }}</p>
-          <tables v-else-if="overAllTheory.length !== 0" :options="overAllTheory" name="Over All Theory" style="display: flex"></tables>
+          <tables v-else-if="overAllTheory.length !== 0" :options="overAllTheory" name="Over All Theory Par Sheet" style="display: flex"></tables>
           <v-progress-circular indeterminate class="primary--text" v-else :size="50" style="width:100%;"></v-progress-circular>
         </v-card-text>
       </v-card>
@@ -13,7 +13,7 @@
       <v-card>
         <v-card-text>
           <p v-if="error !== ''" class="ma-0">{{ error }}</p>
-          <tables v-else-if="overAll.length !== 0" :options="overAll" name="Over All Theory" style="display: flex"></tables>
+          <tables v-else-if="overAll.length !== 0" :options="overAll" name="Over All Theory Par Sheet" style="display: flex"></tables>
           <v-progress-circular indeterminate class="primary--text" v-else :size="50" style="width:100%;"></v-progress-circular>
         </v-card-text>
       </v-card>

@@ -66,7 +66,7 @@ export default {
           zoomType: 'x'
         },
         title: {
-          text: 'Base Game Distribution'
+          text: 'Wins Distribution (Base Game)'
         },
         xAxis: {
           categories: categories
