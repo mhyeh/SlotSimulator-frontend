@@ -33,7 +33,7 @@ export default {
     return {
       freeGame: [],
       categories: [],
-      size: 1000000,
+      size: 4000000,
       error: '',
       network: false
     }
@@ -68,7 +68,8 @@ export default {
           text: 'Wins Distribution (Bonus Game)'
         },
         xAxis: {
-          categories: categories
+          categories: categories,
+          tickmarkPlacement: 'on'
         },
         yAxis: {
           title: {
@@ -83,6 +84,13 @@ export default {
         },
         tooltip: {
           pointFormat: '{series.name}: <b>{point.y}</b>'
+        },
+        plotOptions: {
+          spline: {
+            marker: {
+              enabled: false
+            }
+          }
         },
         series: [{
           name: 'Times',

@@ -75,7 +75,8 @@ export default {
           text: 'Total Net Win'
         },
         xAxis: {
-          categories: categories
+          categories: categories,
+          tickmarkPlacement: 'on'
         },
         yAxis: {
           title: {
@@ -87,6 +88,13 @@ export default {
         },
         credits: {
           enabled: false
+        },
+        plotOptions: {
+          spline: {
+            marker: {
+              enabled: false
+            }
+          }
         },
         series: [{
           data: datas

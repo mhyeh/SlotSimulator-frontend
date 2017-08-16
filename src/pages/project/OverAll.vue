@@ -33,7 +33,7 @@ export default {
     return {
       overAll: [],
       categories: [],
-      size: 1000000,
+      size: 4000000,
       min: 0,
       max: 0,
       error: '',
@@ -70,7 +70,8 @@ export default {
           text: 'Wins Distribution (Over All)'
         },
         xAxis: {
-          categories: categories
+          categories: categories,
+          tickmarkPlacement: 'on'
         },
         yAxis: {
           title: {
@@ -85,6 +86,13 @@ export default {
         },
         tooltip: {
           pointFormat: '{series.name}: <b>{point.y}</b>'
+        },
+        plotOptions: {
+          spline: {
+            marker: {
+              enabled: false
+            }
+          }
         },
         series: [{
           name: 'Times',
