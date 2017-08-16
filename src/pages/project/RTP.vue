@@ -82,7 +82,11 @@ export default {
           text: 'RTP'
         },
         xAxis: {
-          categories: categories
+          title: {
+            text: 'RTP'
+          },
+          categories: categories,
+          tickmarkPlacement: 'on'
         },
         yAxis: {
           title: {
@@ -97,6 +101,13 @@ export default {
         },
         tooltip: {
           pointFormat: '{series.name}: <b>{point.y}</b>'
+        },
+        plotOptions: {
+          spline: {
+            marker: {
+              enabled: false
+            }
+          }
         },
         series: [{
           name: 'Times',
