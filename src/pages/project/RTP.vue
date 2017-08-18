@@ -31,19 +31,11 @@
       <v-card-text>
         <p v-if="error !== ''" class="ma-0">{{ error }}</p>
         <v-layout v-else-if="rtp.length !== 0" row wrap>
-          <v-flex xs10>
+          <v-flex xs9>
             <high-chart :options="defaultOption(rtp, categories)" style="display: flex"></high-chart>
           </v-flex>
-          <v-flex xs2>
-            <v-data-table
-              v-bind:headers="header"
-              :items="item"
-            >
-              <template slot="items" scope="props">
-                <td>{{ props.item.Symbol }}</td>
-                <td class="text-xs-right">{{ props.item.Length }}</td>
-              </template>
-            </v-data-table>
+          <v-flex xs3>
+            <support-data :option="tableData"></support-data>
           </v-flex>
         </v-layout>
         <v-progress-circular indeterminate class="primary--text" v-else :size="50" style="width:100%;"></v-progress-circular>
@@ -58,8 +50,7 @@ import _ from 'lodash'
 export default {
   data () {
     return {
-      header: ['Data', 'Value'],
-      item: [],
+      tableData: {},
       rtp: [],
       categories: [],
       size: 4000000,
@@ -82,8 +73,10 @@ export default {
       self.error = ''
       self.network = true
       api.rtp(self.$store.state.token, self.$store.state.projectId.id, self.size, self.step, self.range).then(function (res) {
-        self.rtp = self.conertData(res.data)
-        self.network = false
+        console.log(res.data)
+        self.rtp       = self.conertData(res.data.chartData)
+        self.tableData = res.data.tableData
+        self.network   = false
       }).catch(function (error) {
         console.log(error)
         self.error = error.message

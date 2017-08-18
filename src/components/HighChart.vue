@@ -5,7 +5,7 @@
 </template>
 
 <script>
-var Highcharts = require('highcharts')
+let Highcharts = require('highcharts')
 require('highcharts/modules/boost')(Highcharts)
 // require('highcharts/modules/exporting')(Highcharts)
 

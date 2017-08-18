@@ -18,7 +18,14 @@
     <v-card>
       <v-card-text>
         <p v-if="error !== ''" class="ma-0">{{ error }}</p>
-        <high-chart v-else-if="overAll.length !== 0" :options="defaultOption(overAll, categories)" style="display: flex"></high-chart>
+        <v-layout v-else-if="overAll.length !== 0" row wrap>
+          <v-flex xs9>
+            <high-chart :options="defaultOption(overAll, categories)" style="display: flex"></high-chart>
+          </v-flex>
+          <v-flex xs3>
+            <support-data :option="tableData"></support-data>
+          </v-flex>
+        </v-layout>
         <v-progress-circular indeterminate class="primary--text" v-else :size="50" style="width:100%;"></v-progress-circular>
       </v-card-text>
     </v-card>
@@ -31,6 +38,7 @@ import _ from 'lodash'
 export default {
   data () {
     return {
+      tableData: {},
       overAll: [],
       categories: [],
       size: 4000000,
@@ -53,8 +61,9 @@ export default {
       self.error = ''
       self.network = true
       api.overall(self.$store.state.token, self.$store.state.projectId.id, self.size, '').then(function (res) {
-        self.overAll = self.conertData(res.data)
-        self.network = false
+        self.overAll   = self.conertData(res.data.chartData)
+        self.tableData = res.data.tableData
+        self.network   = false
       }).catch(function (error) {
         console.log(error)
         self.error = error.message

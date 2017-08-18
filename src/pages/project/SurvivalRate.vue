@@ -77,9 +77,7 @@ export default {
       self.error = ''
       self.network = true
       api.survivalRate(self.$store.state.token, self.$store.state.projectId.id, self.size).then(res => {
-        console.log(1)
         self.survivalRate = res.data
-        console.log(self.survivalRate)
         self.network = false
       }).catch(error => {
         console.log(error)
