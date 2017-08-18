@@ -76,7 +76,7 @@ export default {
     defaultOption (datas, categories) {
       return {
         chart: {
-          type: 'spline'
+          type: 'column'
         },
         title: {
           text: 'RTP'
@@ -85,13 +85,13 @@ export default {
           title: {
             text: 'RTP'
           },
-          categories: categories,
-          tickmarkPlacement: 'on'
+          categories: categories
         },
         yAxis: {
           title: {
             text: 'times'
-          }
+          },
+          type: 'logarithmic'
         },
         legend: {
           enabled: false

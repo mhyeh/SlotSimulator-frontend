@@ -74,7 +74,8 @@ export default {
         yAxis: {
           title: {
             text: 'times'
-          }
+          },
+          type: 'logarithmic'
         },
         legend: {
           enabled: false

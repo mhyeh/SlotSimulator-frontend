@@ -69,19 +69,19 @@ export default {
     defaultOption (datas, categories) {
       return {
         chart: {
-          type: 'spline'
+          type: 'column'
         },
         title: {
           text: 'Total Net Win'
         },
         xAxis: {
-          categories: categories,
-          tickmarkPlacement: 'on'
+          categories: categories
         },
         yAxis: {
           title: {
             text: 'times'
-          }
+          },
+          type: 'logarithmic'
         },
         legend: {
           enabled: false
