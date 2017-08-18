@@ -30,7 +30,22 @@
     <v-card>
       <v-card-text>
         <p v-if="error !== ''" class="ma-0">{{ error }}</p>
-        <high-chart v-else-if="rtp.length !== 0" :options="defaultOption(rtp, categories)" style="display: flex"></high-chart>
+        <v-layout v-else-if="rtp.length !== 0" row wrap>
+          <v-flex xs10>
+            <high-chart :options="defaultOption(rtp, categories)" style="display: flex"></high-chart>
+          </v-flex>
+          <v-flex xs2>
+            <v-data-table
+              v-bind:headers="header"
+              :items="item"
+            >
+              <template slot="items" scope="props">
+                <td>{{ props.item.Symbol }}</td>
+                <td class="text-xs-right">{{ props.item.Length }}</td>
+              </template>
+            </v-data-table>
+          </v-flex>
+        </v-layout>
         <v-progress-circular indeterminate class="primary--text" v-else :size="50" style="width:100%;"></v-progress-circular>
       </v-card-text>
     </v-card>
@@ -43,6 +58,8 @@ import _ from 'lodash'
 export default {
   data () {
     return {
+      header: ['Data', 'Value'],
+      item: [],
       rtp: [],
       categories: [],
       size: 4000000,
