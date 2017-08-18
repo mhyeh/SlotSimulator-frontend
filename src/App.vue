@@ -18,8 +18,8 @@
           <v-btn flat @click="logout">Log out</v-btn>
         </v-toolbar-items>
         <v-toolbar-items v-else class="hidden-sm-and-down">
-          <v-btn flat to="./login">Sign in</v-btn>
-          <v-btn flat to="./register">Sign up</v-btn>
+          <v-btn flat to="/login">Sign in</v-btn>
+          <v-btn flat to="/register">Sign up</v-btn>
         </v-toolbar-items>
         <v-spacer></v-spacer>
       </v-toolbar>
@@ -129,7 +129,7 @@ export default {
           ]
         },
         {
-          action: 'mdi-chart-bar',
+          action: 'mdi-chart-line',
           title: 'Wins Distribution',
           items: [
             { title: 'Over All' },
@@ -138,7 +138,7 @@ export default {
           ]
         },
         {
-          action: 'mdi-chart-line',
+          action: 'mdi-chart-bar',
           title: 'Player Experience',
           items: [
             { title: 'RTP' },
