@@ -3,7 +3,7 @@
     <v-flex xs6>
       <v-card>
         <v-card-text>
-          <p v-if="error !== '{}'" class="ma-0">{{ error }}</p>
+          <p v-if="theoryError !== '{}'" class="ma-0">{{ '' }}</p>
           <tables v-else-if="overAllTheory.length !== 0" :options="overAllTheory" name="Over All Theory Par Sheet" style="display: flex"></tables>
           <v-progress-circular indeterminate class="primary--text" v-else :size="50" style="width:100%;"></v-progress-circular>
         </v-card-text>
@@ -12,7 +12,7 @@
     <v-flex xs6>
       <v-card>
         <v-card-text>
-          <p v-if="error !== ''" class="ma-0">{{ error }}</p>
+          <p v-if="simulationError !== ''" class="ma-0">{{ '' }}</p>
           <tables v-else-if="overAll.length !== 0" :options="overAll" name="Over All Theory Par Sheet" style="display: flex"></tables>
           <v-progress-circular indeterminate class="primary--text" v-else :size="50" style="width:100%;"></v-progress-circular>
         </v-card-text>
@@ -31,7 +31,8 @@ export default {
     return {
       overAll: '',
       overAllTheory: '',
-      error: ''
+      simulationError: '',
+      theoryError: ''
     }
   },
   beforeMount () {
@@ -40,24 +41,25 @@ export default {
   methods: {
     start () {
       let self = this
-      api.overallTable(self.$store.state.token, self.$store.state.projectId.id).then(res => {
-        self.overAll       = res.data.simulation
-        self.overAllTheory = res.data.theory
-
-        papaparse.parse(self.overAll, {
+      api.overallSimulation(self.$store.state.token, self.$store.state.projectId.id).then(res => {
+        papaparse.parse(res.data.simulation, {
           complete: function (result) {
             self.overAll = result.data
           }
         })
-
-        papaparse.parse(self.overAllTheory, {
+      }).catch(error => {
+        console.log(error)
+        self.simulationError = error.message
+      })
+      api.overallTheory(self.$store.state.token, self.$store.state.projectId.id).then(res => {
+        papaparse.parse(res.data.theory, {
           complete: function (result) {
             self.overAllTheory = result.data
           }
         })
       }).catch(error => {
         console.log(error)
-        self.error = error.message
+        self.theoryError = error.message
       })
     }
   }

@@ -69,14 +69,23 @@ export default {
   getProjectType: function (token, id) {
     return client.get('/project/type/' + id, { headers: {'Authorization': token} })
   },
-  overallTable: function (token, id) {
-    return client.get('/table/' + id + '/overAll', { headers: {'Authorization': token} })
+  overallSimulation: function (token, id) {
+    return client.get('/table/' + id + '/overAllSimulation', { headers: {'Authorization': token} })
   },
-  basegameTable: function (token, id) {
-    return client.get('/table/' + id + '/baseGame', { headers: {'Authorization': token} })
+  basegameSimulation: function (token, id) {
+    return client.get('/table/' + id + '/baseGameSimulation', { headers: {'Authorization': token} })
   },
-  freegameTable: function (token, id) {
-    return client.get('/table/' + id + '/freeGame', { headers: {'Authorization': token} })
+  freegameSimulation: function (token, id) {
+    return client.get('/table/' + id + '/freeGameSimulation', { headers: {'Authorization': token} })
+  },
+  overallTheory: function (token, id) {
+    return client.get('/table/' + id + '/overAllTheory', { headers: {'Authorization': token} })
+  },
+  basegameTheory: function (token, id) {
+    return client.get('/table/' + id + '/baseGameTheory', { headers: {'Authorization': token} })
+  },
+  freegameTheory: function (token, id) {
+    return client.get('/table/' + id + '/freeGameTheory', { headers: {'Authorization': token} })
   },
   overall: function (token, id, size, distribution) {
     return client.get('/chart/' + id + '/overAll?size=' + size + '&distribution=' + JSON.stringify(_distribution), { headers: {'Authorization': token} })

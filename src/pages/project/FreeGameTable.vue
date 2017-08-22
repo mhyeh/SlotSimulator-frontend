@@ -3,7 +3,7 @@
     <v-flex xs6>
       <v-card>
         <v-card-text>
-          <p v-if="error !== ''" class="ma-0">{{ error }}</p>
+          <p v-if="theoryError !== ''" class="ma-0">{{ '' }}</p>
           <tables v-else-if="freeGameTheory.length !== 0" :options="freeGameTheory" name="Free Game Theory Par Sheet" style="display: flex"></tables>
           <v-progress-circular indeterminate class="primary--text" v-else :size="50" style="width:100%;"></v-progress-circular>
         </v-card-text>
@@ -12,7 +12,7 @@
     <v-flex xs6>
       <v-card>
         <v-card-text>
-          <p v-if="error !== ''" class="ma-0">{{ error }}</p>
+          <p v-if="simulationError !== ''" class="ma-0">{{ '' }}</p>
           <tables v-else-if="freeGame.length !== 0" :options="freeGame" name="Free Game Simulation Par Sheet" style="display: flex"></tables>
           <v-progress-circular indeterminate class="primary--text" v-else :size="50" style="width:100%;"></v-progress-circular>
         </v-card-text>
@@ -31,7 +31,8 @@ export default {
     return {
       freeGame: '',
       freeGameTheory: '',
-      error: ''
+      simulationError: '',
+      theoryError: ''
     }
   },
   beforeMount () {
@@ -40,23 +41,25 @@ export default {
   methods: {
     start () {
       let self = this
-      api.freegameTable(self.$store.state.token, self.$store.state.projectId.id).then(res => {
-        self.freeGame       = res.data.simulation
-        self.freeGameTheory = res.data.theory
-        papaparse.parse(self.freeGame, {
+      api.freegameSimulation(self.$store.state.token, self.$store.state.projectId.id).then(res => {
+        papaparse.parse(res.data.simulation, {
           complete: function (result) {
             self.freeGame = result.data
           }
         })
-
-        papaparse.parse(self.freeGameTheory, {
+      }).catch(error => {
+        console.log(error)
+        self.simulationError = error.message
+      })
+      api.freegameTheory(self.$store.state.token, self.$store.state.projectId.id).then(res => {
+        papaparse.parse(res.data.theory, {
           complete: function (result) {
             self.freeGameTheory = result.data
           }
         })
       }).catch(error => {
         console.log(error)
-        self.error = error.message
+        self.theoryError = error.message
       })
     }
   }
