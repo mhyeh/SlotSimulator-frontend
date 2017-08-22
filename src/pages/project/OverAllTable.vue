@@ -3,7 +3,7 @@
     <v-flex xs6>
       <v-card>
         <v-card-text>
-          <p v-if="theoryError !== '{}'" class="ma-0">{{ '' }}</p>
+          <p v-if="theoryError !== '{}'" class="ma-0">{{  }}</p>
           <tables v-else-if="overAllTheory.length !== 0" :options="overAllTheory" name="Over All Theory Par Sheet" style="display: flex"></tables>
           <v-progress-circular indeterminate class="primary--text" v-else :size="50" style="width:100%;"></v-progress-circular>
         </v-card-text>
@@ -12,7 +12,7 @@
     <v-flex xs6>
       <v-card>
         <v-card-text>
-          <p v-if="simulationError !== ''" class="ma-0">{{ '' }}</p>
+          <p v-if="simulationError !== ''" class="ma-0">{{  }}</p>
           <tables v-else-if="overAll.length !== 0" :options="overAll" name="Over All Theory Par Sheet" style="display: flex"></tables>
           <v-progress-circular indeterminate class="primary--text" v-else :size="50" style="width:100%;"></v-progress-circular>
         </v-card-text>

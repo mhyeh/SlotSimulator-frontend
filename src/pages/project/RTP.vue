@@ -32,10 +32,18 @@
         <p v-if="error !== ''" class="ma-0">{{ error }}</p>
         <v-layout v-else-if="rtp.length !== 0" row wrap>
           <v-flex xs9>
-            <high-chart :options="defaultOption(rtp, categories)" style="display: flex"></high-chart>
+            <v-card>
+              <v-card-text>
+                <high-chart :options="defaultOption(rtp, categories)" style="display: flex"></high-chart>
+              </v-card-text>
+            </v-card>
           </v-flex>
           <v-flex xs3>
-            <support-data :option="tableData"></support-data>
+            <v-card>
+              <v-card-text>
+                <support-data :option="tableData"></support-data>
+              </v-card-text>
+            </v-card>
           </v-flex>
         </v-layout>
         <v-progress-circular indeterminate class="primary--text" v-else :size="50" style="width:100%;"></v-progress-circular>

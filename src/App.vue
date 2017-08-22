@@ -121,7 +121,7 @@ export default {
       lists: [
         {
           action: 'mdi-table-large',
-          title: 'Par Sheet',
+          title: 'PAR Sheet',
           items: [
             { title: 'Over All' },
             { title: 'Base Game' },
