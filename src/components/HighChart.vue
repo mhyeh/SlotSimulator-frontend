@@ -28,6 +28,12 @@ export default {
     }
   },
   mounted () {
+    Highcharts.setOptions({
+      lang: {
+        thousandsSep: ','
+      }
+    })
+
     this.chart = Highcharts.chart(this.$el, this.options)
   },
   beforeDestroy () {

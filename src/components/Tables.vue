@@ -6,7 +6,7 @@
         <v-card>
           <v-card-text>
             {{ info[0] }}
-            <v-card-title><h5 style="white-space: pre-line;">{{ info[1] }}</h5></v-card-title>
+            <v-card-title><h5 style="white-space: pre-line;">{{ format(info[1]) }}</h5></v-card-title>
           </v-card-text>
         </v-card>
       </v-flex>
@@ -18,9 +18,9 @@
       <template slot="items" scope="props">
         <td>{{ props.item.Symbol }}</td>
         <td class="text-xs-right">{{ props.item.Length }}</td>
-        <td class="text-xs-right">{{ props.item.Hits }}</td>
+        <td class="text-xs-right">{{ format(props.item.Hits) }}</td>
         <td class="text-xs-right">{{ props.item.Frequency }}</td>
-        <td class="text-xs-right">{{ props.item.Payout }}</td>
+        <td class="text-xs-right">{{ format(props.item.Payout) }}</td>
       </template>
     </v-data-table>
   </v-layout>
@@ -75,6 +75,15 @@
           items.push(data)
         }
         return items
+      }
+    },
+    methods: {
+      format (data) {
+        if (parseInt(data).toString() === data) {
+          return data.replace(/\B(?=(\d{3})+(?!\d))/g, ',')
+        } else {
+          return data
+        }
       }
     }
   }

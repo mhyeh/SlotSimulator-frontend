@@ -48,7 +48,7 @@ export default {
       }).then(res => {
         data.type = res.data.name
         for (let showData of showDatas) {
-          self.infoes[showData] = data[showData]
+          self.infoes[showData] = data[showData].toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')
         }
       }).catch(error => {
         console.log(error)

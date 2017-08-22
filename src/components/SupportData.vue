@@ -6,7 +6,7 @@
   >
     <template slot="items" scope="props">
       <td>{{ props.item.Data }}</td>
-      <td class="text-xs-right">{{ props.item.Value }}</td>
+      <td class="text-xs-right">{{ format(props.item.Value) }}</td>
     </template>
   </v-data-table>
 </template>
@@ -43,6 +43,13 @@
         item.push({Data: 'max', Value: data.max})
 
         return item
+      },
+      format (data) {
+        if (parseInt(data) === data) {
+          return data.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')
+        } else {
+          return data
+        }
       }
     }
   }
