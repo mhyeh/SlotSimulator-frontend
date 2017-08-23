@@ -66,8 +66,11 @@ export default {
   getProject: function (token, id) {
     return client.get('/project/' + id, { headers: {'Authorization': token} })
   },
+  getAllProjectType: function (token) {
+    return client.get('/projectType/', { headers: {'Authorization': token} })
+  },
   getProjectType: function (token, id) {
-    return client.get('/project/type/' + id, { headers: {'Authorization': token} })
+    return client.get('/projectType/' + id, { headers: {'Authorization': token} })
   },
   overallSimulation: function (token, id) {
     return client.get('/table/' + id + '/overAllSimulation', { headers: {'Authorization': token} })

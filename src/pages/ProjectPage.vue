@@ -10,11 +10,7 @@
       </v-card>
     </div>
     <div class="projects pa-2" @click="add">
-      <v-card v-ripple>
-        <v-card-text class="blue">
-          <v-card-title><h3>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</h3></v-card-title>
-        </v-card-text>
-      </v-card>
+      <project-creater></project-creater>
     </div>
     <v-spacer></v-spacer>
     </v-layout>
@@ -28,7 +24,8 @@ export default {
   props: ['title'],
   data () {
     return {
-      project: []
+      project: [],
+      dialog: false
     }
   },
   beforeMount () {
