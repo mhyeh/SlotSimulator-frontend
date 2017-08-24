@@ -5,14 +5,6 @@
         <v-spacer></v-spacer>
         <v-toolbar-title>{{ title }}</v-toolbar-title>
         <v-spacer></v-spacer>
-        <v-toolbar-side-icon v-if="isLogin === true" class="hidden-md-and-up">
-          {{ name }}
-          <v-btn flat @click="logout">Log out</v-btn>
-        </v-toolbar-side-icon>
-        <v-toolbar-side-icon v-else class="hidden-md-and-up">
-          <v-btn flat to="/login">Sign in</v-btn>
-          <v-btn flat to="/register">Sign up</v-btn>
-        </v-toolbar-side-icon>
         <v-toolbar-items v-if="isLogin === true" class="hidden-sm-and-down">
           {{ name }}
           <v-btn flat @click="logout">Log out</v-btn>
