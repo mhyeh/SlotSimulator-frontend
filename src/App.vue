@@ -145,6 +145,14 @@ export default {
             { title: 'Total Net Win' },
             { title: 'Survival Rate' }
           ]
+        },
+        {
+          action: 'settings',
+          title: 'Setting',
+          items: [
+            { title: 'Project Setting' },
+            { title: 'Others' }
+          ]
         }
       ],
       mini: false,
