@@ -35,12 +35,12 @@
       getData (data) {
         let item = []
 
-        item.push({Data: 'Avg', Value: data.avg})
-        item.push({Data: 'mid', Value: data.mid})
-        item.push({Data: 'q1', Value: data.q1})
-        item.push({Data: 'q3', Value: data.q3})
-        item.push({Data: 'min', Value: data.min})
-        item.push({Data: 'max', Value: data.max})
+        item.push({Data: 'Avg',    Value: data.Avg})
+        item.push({Data: 'Q1',     Value: data.Q1})
+        item.push({Data: 'Median', Value: data.Median})
+        item.push({Data: 'Q3',     Value: data.Q3})
+        item.push({Data: 'Min',    Value: data.Min})
+        item.push({Data: 'Max',    Value: data.Max})
 
         return item
       },
