@@ -17,10 +17,10 @@
               <v-text-field class="pa-0" :max="400" :min="1" v-model="step" type="number" @change="change" :disabled="network"></v-text-field>
             </v-flex>
             <v-flex xs9>
-              <v-slider class="pa-0" label="range(%)" :max="100" :min="1" v-model="range" @input="change" :disabled="network"></v-slider>
+              <v-slider class="pa-0" label="range" :max="100" :min="1" v-model="range" @input="change" :disabled="network"></v-slider>
             </v-flex>
             <v-flex xs3 class="pl-4">
-              <v-text-field class="pa-0" :max="100" :min="1" v-model="range" type="number" @change="change" :disabled="network"></v-text-field>
+              <v-text-field class="pa-0" :max="100" :min="1" v-model="range" type="number" @change="change" :disabled="network" suffix="%"></v-text-field>
             </v-flex>
           </v-layout>
         </v-container>
