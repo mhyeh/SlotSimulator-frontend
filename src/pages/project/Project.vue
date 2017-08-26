@@ -1,6 +1,6 @@
 <template>
   <div id="Project">
-    <router-view></router-view>
+    <router-view v-on:logout="logout"></router-view>
   </div>
 </template>
 
@@ -13,6 +13,11 @@ export default {
   },
   mounted () {
 
+  },
+  methods: {
+    logout () {
+      this.$emit('logout')
+    }
   }
 }
 </script>

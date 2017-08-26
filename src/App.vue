@@ -5,8 +5,9 @@
         <v-spacer></v-spacer>
         <v-toolbar-title>{{ title }}</v-toolbar-title>
         <v-spacer></v-spacer>
-        <v-toolbar-items v-if="isLogin === true" class="hidden-sm-and-down">
-          {{ name }}
+        {{ name }}
+        <v-toolbar-items v-if="name !== ''" class="hidden-sm-and-down">
+          
           <v-btn flat @click="logout">Log out</v-btn>
         </v-toolbar-items>
         <v-toolbar-items v-else class="hidden-sm-and-down">
@@ -97,18 +98,20 @@
     
     <main>
       <v-container fluid>
-        <router-view v-on:login="login" id="main"></router-view>
+        <router-view v-on:login="login" v-on:logout="logout" id="main"></router-view>
       </v-container>
     </main>
   </v-app>
 </template>
 
 <script>
+import api from './store/api'
+
 export default {
   name: 'app',
   data () {
     return {
-      title: 'Analysis Chart',
+      title: 'SlotsMaster',
       drawer: true,
       lists: [
         {
@@ -148,8 +151,6 @@ export default {
         }
       ],
       mini: false,
-      right: null,
-      isLogin: false,
       name: ''
     }
   },
@@ -180,20 +181,31 @@ export default {
     changeProject (item) {
       this.$store.commit('chooseProject', item)
     },
-    login (name) {
-      localStorage.setItem('isLogin', true)
-      localStorage.setItem('name', name)
-      // this.isLogin
-      this.isLogin = localStorage.getItem('isLogin')
-      this.name = localStorage.getItem('name')
+    login () {
+      let self = this
+      api.getUserInfo(localStorage.getItem('token')).then(res => {
+        self.name = res.data.name
+        self.$router.push('/Account')
+      }).catch(error => {
+        console.log(error.response.data)
+      })
     },
     logout () {
-      localStorage.setItem('isLogin', false)
-      localStorage.setItem('name', '')
-      this.$router.push('/')
-      this.isLogin = localStorage.getItem('isLogin')
-      this.name = localStorage.getItem('name')
+      this.name = ''
+      localStorage.setItem('token', '')
+      this.$router.push('/login')
     }
+  },
+  beforeMount () {
+    let self = this
+    let token = ((localStorage.getItem('token') !== undefined) ? localStorage.getItem('token') : '')
+    api.getUserInfo(token).then(res => {
+      self.name = res.data.name
+      self.$router.push('/Account')
+    }).catch(error => {
+      console.log(error.response.data)
+      localStorage.setItem('token', '')
+    })
   }
 }
 </script>

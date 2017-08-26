@@ -66,14 +66,17 @@ export default {
       self.freeGame = []
       self.error = ''
       self.network = true
-      api.freegame(self.$store.state.token, self.$store.state.projectId.id, self.size, '').then(function (res) {
+      api.freegame(localStorage.getItem('token'), self.$store.state.projectId.id, self.size, '').then(res => {
         self.freeGame  = self.conertData(res.data.chartData)
         self.tableData = res.data.tableData
         self.network   = false
-      }).catch(function (error) {
+      }).catch(error => {
         console.log(error)
         self.error = error.message
         self.network = false
+        if (error.response.code === 104) {
+          self.$emit('logout')
+        }
       })
     },
     defaultOption (datas, categories) {

@@ -76,13 +76,16 @@ export default {
       self.survivalRate = []
       self.error = ''
       self.network = true
-      api.survivalRate(self.$store.state.token, self.$store.state.projectId.id, self.size).then(res => {
+      api.survivalRate(localStorage.getItem('token'), self.$store.state.projectId.id, self.size).then(res => {
         self.survivalRate = res.data
         self.network = false
       }).catch(error => {
         console.log(error)
         self.error = error.message
         self.network = false
+        if (error.response.data.code === 104) {
+          self.$emit('logout')
+        }
       })
     },
     change: _.debounce(function () {

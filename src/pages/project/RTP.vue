@@ -80,15 +80,18 @@ export default {
       self.rtp = []
       self.error = ''
       self.network = true
-      api.rtp(self.$store.state.token, self.$store.state.projectId.id, self.size, self.step, self.range).then(function (res) {
+      api.rtp(localStorage.getItem('token'), self.$store.state.projectId.id, self.size, self.step, self.range).then(res => {
         console.log(res.data)
         self.rtp       = self.conertData(res.data.chartData)
         self.tableData = res.data.tableData
         self.network   = false
-      }).catch(function (error) {
+      }).catch(error => {
         console.log(error)
         self.error = error.message
         self.network = false
+        if (error.response.data.code === 104) {
+          self.$emit('logout')
+        }
       })
     },
     defaultOption (datas, categories) {

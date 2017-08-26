@@ -41,7 +41,7 @@ export default {
   methods: {
     start () {
       let self = this
-      api.basegameSimulation(self.$store.state.token, self.$store.state.projectId.id).then(res => {
+      api.basegameSimulation(localStorage.getItem('token'), self.$store.state.projectId.id).then(res => {
         papaparse.parse(res.data.simulation, {
           complete: function (result) {
             self.baseGame = result.data
@@ -50,8 +50,11 @@ export default {
       }).catch(error => {
         console.log(error)
         self.simulationError = error.message
+        if (error.response.data.code === 104) {
+          self.$emit('logout')
+        }
       })
-      api.basegameTheory(self.$store.state.token, self.$store.state.projectId.id).then(res => {
+      api.basegameTheory(localStorage.getItem('token'), self.$store.state.projectId.id).then(res => {
         papaparse.parse(res.data.theory, {
           complete: function (result) {
             self.baseGameTheory = result.data
@@ -60,6 +63,9 @@ export default {
       }).catch(error => {
         console.log(error)
         self.theoryError = error.message
+        if (error.response.data.code === 104) {
+          self.$emit('logout')
+        }
       })
     }
   }

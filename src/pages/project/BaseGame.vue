@@ -66,7 +66,7 @@ export default {
       self.baseGame = []
       self.error = ''
       self.network = true
-      api.basegame(self.$store.state.token, self.$store.state.projectId.id, self.size, '').then(res => {
+      api.basegame(localStorage.getItem('token'), self.$store.state.projectId.id, self.size, '').then(res => {
         self.baseGame  = self.conertData(res.data.chartData)
         self.tableData = res.data.tableData
         self.network   = false
@@ -74,6 +74,9 @@ export default {
         console.log(error)
         self.error = error.message
         self.network = false
+        if (error.response.data.code === 104) {
+          self.$emit('logout')
+        }
       })
     },
     defaultOption (datas, categories) {

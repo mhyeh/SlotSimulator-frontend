@@ -30,9 +30,15 @@ export default {
   },
   beforeMount () {
     let self = this
-    api.getAllProject(self.$store.state.token).then(function (res) {
+    console.log(localStorage.getItem('token'))
+    api.getAllProject(localStorage.getItem('token')).then(res => {
       self.project = res.data
       self.$store.commit('setProject', res.data)
+    }).catch(error => {
+      console.log(error.response.data)
+      if (error.response.data.code === 104) {
+        self.$emit('logout')
+      }
     })
   },
   methods: {

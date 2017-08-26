@@ -41,7 +41,7 @@ export default {
   methods: {
     start () {
       let self = this
-      api.freegameSimulation(self.$store.state.token, self.$store.state.projectId.id).then(res => {
+      api.freegameSimulation(localStorage.getItem('token'), self.$store.state.projectId.id).then(res => {
         papaparse.parse(res.data.simulation, {
           complete: function (result) {
             self.freeGame = result.data
@@ -50,8 +50,11 @@ export default {
       }).catch(error => {
         console.log(error)
         self.simulationError = error.message
+        if (error.response.code === 104) {
+          self.$emit('logout')
+        }
       })
-      api.freegameTheory(self.$store.state.token, self.$store.state.projectId.id).then(res => {
+      api.freegameTheory(localStorage.getItem('token'), self.$store.state.projectId.id).then(res => {
         papaparse.parse(res.data.theory, {
           complete: function (result) {
             self.freeGameTheory = result.data
@@ -60,6 +63,9 @@ export default {
       }).catch(error => {
         console.log(error)
         self.theoryError = error.message
+        if (error.response.code === 104) {
+          self.$emit('logout')
+        }
       })
     }
   }

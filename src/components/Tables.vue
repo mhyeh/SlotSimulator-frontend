@@ -2,8 +2,8 @@
   <v-layout row wrap>
     <p><h5>{{ name }}</h5></p>
     <v-layout row wrap>
-      <v-flex class="infoes pa-2" v-for="info of getInfo" :key="info[0]">
-        <v-card>
+      <v-flex class="pb-1" v-for="info of getInfo" :key="info[0]">
+        <v-card height="12vh">
           <v-card-text>
             {{ info[0] }}
             <v-card-title><h5 style="white-space: pre-line;">{{ format(info[1]) }}</h5></v-card-title>

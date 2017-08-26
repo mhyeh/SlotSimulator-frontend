@@ -35,14 +35,12 @@ export default {
       let self = this
       let token
       if (self.account !== '' && self.password !== '') {
-        api.login(self.account, self.password).then(function (res) {
+        api.login(self.account, self.password).then(res => {
           token = res.data.token
-          return api.getUserInfo(token)
-        }).then(res => {
-          self.$emit('login', res.data.name)
-          self.$store.commit('login', token)
-          self.$router.replace('/Account')
-        }).catch((res) => {
+          // self.$store.commit('login', token)
+          localStorage.setItem('token', token)
+          self.$emit('login')
+        }).catch(res => {
           console.log(res)
         })
       }

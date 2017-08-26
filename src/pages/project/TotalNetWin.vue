@@ -57,13 +57,16 @@ export default {
       self.totalNetWin = []
       self.error = ''
       self.network = true
-      api.totalNetWin(self.$store.state.token, self.$store.state.projectId.id, self.size, self.range).then(function (res) {
+      api.totalNetWin(localStorage.getItem('token'), self.$store.state.projectId.id, self.size, self.range).then(res => {
         self.totalNetWin = self.conertData(res.data)
         self.network = false
-      }).catch(function (error) {
+      }).catch(error => {
         console.log(error)
         self.error = error.message
         self.network = false
+        if (error.response.data.code === 104) {
+          self.$emit('logout')
+        }
       })
     },
     defaultOption (datas, categories) {

@@ -42,13 +42,11 @@ const router = new Router({
     {
       path: '/Account',
       name: 'ProjectPage',
-      component: ProjectPage,
-      meta: { requiresAuth: true }
+      component: ProjectPage
     },
     {
       path: '/Project',
       component: Project,
-      meta: { requiresAuth: true },
       children: [
         {
           path: '',

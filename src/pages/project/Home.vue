@@ -42,9 +42,9 @@ export default {
         type: ''
       }
       self.error = ''
-      api.getProject(self.$store.state.token, self.$store.state.projectId.id).then(res => {
+      api.getProject(localStorage.getItem('token'), self.$store.state.projectId.id).then(res => {
         data = res.data
-        return api.getProjectType(self.$store.state.token, data.typeId)
+        return api.getProjectType(localStorage.getItem('token'), data.typeId)
       }).then(res => {
         data.type = res.data.name
         for (let showData of showDatas) {
@@ -53,6 +53,9 @@ export default {
       }).catch(error => {
         console.log(error)
         self.error = error.message
+        if (error.response.data.code === 104) {
+          self.$emit('logout')
+        }
       })
     }
   }

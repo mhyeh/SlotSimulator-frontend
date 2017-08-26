@@ -41,7 +41,7 @@ export default {
   methods: {
     start () {
       let self = this
-      api.overallSimulation(self.$store.state.token, self.$store.state.projectId.id).then(res => {
+      api.overallSimulation(localStorage.getItem('token'), self.$store.state.projectId.id).then(res => {
         papaparse.parse(res.data.simulation, {
           complete: function (result) {
             self.overAll = result.data
@@ -50,8 +50,11 @@ export default {
       }).catch(error => {
         console.log(error)
         self.simulationError = error.message
+        if (error.response.data.code === 104) {
+          self.$emit('logout')
+        }
       })
-      api.overallTheory(self.$store.state.token, self.$store.state.projectId.id).then(res => {
+      api.overallTheory(localStorage.getItem('token'), self.$store.state.projectId.id).then(res => {
         papaparse.parse(res.data.theory, {
           complete: function (result) {
             self.overAllTheory = result.data
@@ -60,6 +63,9 @@ export default {
       }).catch(error => {
         console.log(error)
         self.theoryError = error.message
+        if (error.response.data.code === 104) {
+          self.$emit('logout')
+        }
       })
     }
   }
