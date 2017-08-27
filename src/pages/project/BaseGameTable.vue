@@ -4,7 +4,7 @@
       <v-card>
         <v-card-text>
           <p v-if="theoryError !== ''" class="ma-0">{{ '' }}</p>
-          <tables v-else-if="baseGameTheory.length !== 0" :options="baseGameTheory" name="Base Game Theory Par Sheet" style="display: flex"></tables>
+          <tables v-else-if="baseGameTheory.length !== 0" :options="baseGameTheory" theory="true" name="Base Game Theory PAR Sheet" style="display: flex"></tables>
           <v-progress-circular indeterminate class="primary--text" v-else :size="50" style="width:100%;"></v-progress-circular>
         </v-card-text>
       </v-card>
@@ -13,7 +13,7 @@
       <v-card>
         <v-card-text>
           <p v-if="simulationError !== ''" class="ma-0">{{ '' }}</p>
-          <tables v-else-if="baseGame.length !== 0" :options="baseGame" name="Base Game Simulation Par Sheet" style="display: flex"></tables>
+          <tables v-else-if="baseGame.length !== 0" :options="baseGame" name="Base Game Simulation PAR Sheet" style="display: flex"></tables>
           <v-progress-circular indeterminate class="primary--text" v-else :size="50" style="width:100%;"></v-progress-circular>
         </v-card-text>
       </v-card>

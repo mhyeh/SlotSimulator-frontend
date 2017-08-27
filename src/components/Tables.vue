@@ -28,7 +28,7 @@
 
 <script>
   export default {
-    props: ['options', 'name'],
+    props: ['options', 'theory', 'name'],
     data () {
       return {
         labels: ['Symbol', 'Length', 'Hits', 'Frequency', 'Payout']
@@ -37,7 +37,11 @@
     computed: {
       getInfo () {
         let result = []
-        for (let i = 2; i < 12; i++) {
+        let i = 2
+        if (this.theory) {
+          i = 4
+        }
+        for (; i < 12; i++) {
           result.push(this.options[i])
         }
         return result
