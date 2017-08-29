@@ -17,13 +17,6 @@
               <v-flex xs6>
                 <v-flex xs6>
                   <v-text-field label="Project Name" required v-model="projectName"></v-text-field>
-                  <v-select
-                    label="Project Type"
-                    autocomplete
-                    required
-                    :items="items"
-                    v-model="projectType"
-                  ></v-select>
                   <v-text-field label="Block" type="number" min="1" max="5000" required v-model="block"></v-text-field>
                   <v-text-field label="Thread" type="number" min="1" max="1000" required v-model="thread"></v-text-field>
                   <v-text-field label="Run Time" type="number" min="1" max="1000000000" required v-model="runnTime"></v-text-field>
@@ -31,27 +24,15 @@
               </v-flex>
               <v-flex xs5>
                 <v-flex xs7>
+                  <v-select
+                    label="Project Type"
+                    required
+                    :items="items"
+                    v-model="projectType"
+                  ></v-select>
                   <v-text-field label="Rows" type="number" min="1" required v-model="rows"></v-text-field>
                   <v-text-field label="Reels" type="number" min="1" required v-model="reels"></v-text-field>
                   <v-text-field label="Bet Cost" type="number" min="1" required v-model="betCost"></v-text-field>
-                </v-flex>
-                <v-layout row>
-                  <v-flex xs5>
-                    <v-text-field label="Symbol" v-model="symbol" ref="symbol"></v-text-field>
-                  </v-flex>
-                  <v-flex xs3>
-                    <v-btn primary @click="add">ADD</v-btn>
-                  </v-flex>
-                </v-layout>
-                <v-flex xs7 elevation-1 pa-1>
-                  <v-list class="list">
-                    <v-list-tile v-for="(symbol, index) in symbols" v-bind:key="index">
-                      <v-list-tile-content>{{ symbol }}</v-list-tile-content>
-                      <v-list-tile-action>
-                        <v-icon @click="deleteItem(index)" class="red--text text--lighten-2">delete</v-icon>
-                      </v-list-tile-action>
-                    </v-list-tile>
-                  </v-list>
                 </v-flex>
               </v-flex>
               <v-flex xs1></v-flex>
@@ -137,7 +118,7 @@ export default {
       let self = this
 
       self.items = []
-      api.getAllProjectType(self.$store.state.token).then(res => {
+      api.getAllProjectType(localStorage.getItem('token')).then(res => {
         for (let item of res.data) {
           self.items.push({
             text: item.name,
