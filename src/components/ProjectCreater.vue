@@ -7,9 +7,7 @@
           <v-stepper-header>
             <v-stepper-step step="1" :complete="e1 > 1" :editable="edit[0]">Basic Setting</v-stepper-step>
             <v-divider></v-divider>
-            <v-stepper-step step="2" :complete="e1 > 2" :editable="edit[1]">Set Stops and Attributes</v-stepper-step>
-            <v-divider></v-divider>
-            <v-stepper-step step="3" :editable="edit[2]">Set Pay Table</v-stepper-step>
+            <v-stepper-step step="2" :complete="e1 > 2" :editable="edit[1]">Upload Files</v-stepper-step>
           </v-stepper-header>
           <v-stepper-content step="1">
             <v-layout row wrap pt-4>
@@ -41,21 +39,28 @@
             </v-layout>
           </v-stepper-content>
           <v-stepper-content step="2">
-            <v-layout row wrap>
+            <v-layout row wrap pt-4>
               <v-flex xs1></v-flex>
               <v-flex xs6>
+                <v-flex xs6>
+                  <file-input label="Symbol" accept=".csv" @formData="Symbols"></file-input>
+                  <file-input label="BaseStops" accept=".csv" @formData="BaseStops"></file-input>
+                  <file-input label="BonusStops" accept=".csv" @formData="BonusStops"></file-input>
+                  <file-input label="Attributes" accept=".csv" @formData="Attributes"></file-input>
+                </v-flex>
               </v-flex>
               <v-flex xs5>
+                <v-flex xs7>
+                  <file-input label="BasePayTable" accept=".csv" @formData="BasePayTable"></file-input>
+                  <file-input label="BonusPayTable" accept=".csv" @formData="BonusPayTable"></file-input>
+                  <file-input label="BasePattern" accept=".csv" @formData="BasePattern"></file-input>
+                  <file-input label="BonusPattern" accept=".csv" @formData="BonusPattern"></file-input>
+                </v-flex>
               </v-flex>
               <v-flex xs1></v-flex>
-              <v-btn primary @click.native="e1 = 3, edit[2] = true">CONTINUE</v-btn>
+              <v-btn primary @click="create" >SAVE</v-btn>
               <v-btn flat @click="close">CLOSE</v-btn>
             </v-layout>
-          </v-stepper-content>
-          <v-stepper-content step="3">
-            
-            <v-btn primary @click="create" >SAVE</v-btn>
-            <v-btn flat @click="close">CLOSE</v-btn>
           </v-stepper-content>
         </v-stepper>
       </v-dialog>
@@ -78,32 +83,18 @@ export default {
       rows: 3,
       reels: 5,
       betCost: 25,
-      symbol: '',
-      symbols: [],
+      symbol: null,
+      baseStops: null,
+      bonusStops: null,
+      attributes: null,
+      basePattern: null,
+      bonusPattern: null,
       items: [],
       e1: 1,
       dialog: false
     }
   },
   methods: {
-    add () {
-      if (this.symbol !== '') {
-        let flag = true
-        for (let symbol of this.symbols) {
-          if (symbol === this.symbol) {
-            flag = false
-          }
-        }
-        if (flag) {
-          this.symbols.push(this.symbol)
-        }
-        this.symbol = ''
-      }
-      this.$refs.symbol.focus()
-    },
-    deleteItem (index) {
-      this.symbols.splice(index, 1)
-    },
     create () {
       this.reset()
     },
@@ -113,6 +104,24 @@ export default {
     reset () {
       Object.assign(this.$data, this.$options.data.apply(this))
       this.getProjectType()
+    },
+    Symbols (formData) {
+      console.log(formData)
+    },
+    BaseStops (formData) {
+      console.log(formData)
+    },
+    BonusStops (formData) {
+      console.log(formData)
+    },
+    Attributes (formData) {
+      console.log(formData)
+    },
+    BasePattern (formData) {
+      console.log(formData)
+    },
+    BonusPattern (formData) {
+      console.log(formData)
     },
     getProjectType () {
       let self = this
