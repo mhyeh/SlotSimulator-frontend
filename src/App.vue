@@ -84,15 +84,22 @@
             <v-icon dark>arrow_drop_down</v-icon>
           </v-toolbar-title>
           <v-list>
-            <v-list-tile v-for="item in projects" :key="item.name" @click="changeProject(item)">
+            <v-list-tile v-for="item in settings" :key="item.name" @click="changeProject(item)">
               <v-list-tile-title v-text="item.name"></v-list-tile-title>
             </v-list-tile>
           </v-list>
         </v-menu>
         <v-spacer></v-spacer>
-        <v-btn icon>
-          <v-icon>more_vert</v-icon>
-        </v-btn>
+        <v-menu right>
+          <v-btn icon slot="activator">
+            <v-icon>more_vert</v-icon>
+          </v-btn>
+          <v-list>
+            <v-list-tile v-for="item in settings" :key="item.title" @click="generate(item.title)">
+              <v-list-tile-title v-text="item.title"></v-list-tile-title>
+            </v-list-tile>
+          </v-list>
+        </v-menu>
       </v-toolbar>
     </template>
     
@@ -140,15 +147,11 @@ export default {
             { title: 'Total Net Win' },
             { title: 'Survival Rate' }
           ]
-        },
-        {
-          action: 'settings',
-          title: 'Setting',
-          items: [
-            { title: 'Project Setting' },
-            { title: 'Others' }
-          ]
         }
+      ],
+      settings: [
+        { title: 'Project Setting' },
+        { title: 'Others' }
       ],
       mini: false,
       name: ''
