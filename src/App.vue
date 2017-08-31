@@ -84,7 +84,7 @@
             <v-icon dark>arrow_drop_down</v-icon>
           </v-toolbar-title>
           <v-list>
-            <v-list-tile v-for="item in settings" :key="item.name" @click="changeProject(item)">
+            <v-list-tile v-for="item in projects" :key="item.name" @click="changeProject(item)">
               <v-list-tile-title v-text="item.name"></v-list-tile-title>
             </v-list-tile>
           </v-list>

@@ -60,6 +60,9 @@ export default {
   getUserInfo: function (token) {
     return client.get('/account', { headers: {'Authorization': token} })
   },
+  createProject: function (token, data) {
+    return client.post('/project', { headers: {'Authorization': token}, data: data })
+  },
   getAllProject: function (token) {
     return client.get('/project', { headers: {'Authorization': token} })
   },
