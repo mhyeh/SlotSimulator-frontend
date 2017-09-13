@@ -151,7 +151,7 @@ export default {
       ],
       settings: [
         { title: 'Project Setting' },
-        { title: 'Others' }
+        { title: 'Upload File' }
       ],
       mini: false,
       name: ''

@@ -110,6 +110,9 @@ export default {
   },
   survivalRate: function (token, id, size) {
     return client.get('/chart/' + id + '/survivalRate?size=' + size, { headers: {'Authorization': token} })
+  },
+  uploadFiles: function (token, id, data) {
+    return client.put('/fileUpload/' + id, { headers: {'Authorization': token}, data: data })
   }
 }
 

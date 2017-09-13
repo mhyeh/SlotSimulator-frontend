@@ -8,17 +8,19 @@ import Register from '@/pages/Register'
 
 import ProjectPage from '@/pages/ProjectPage'
 
-import OverAllTable from      '@/pages/project/OverAllTable'
-import BaseGameTable from     '@/pages/project/BaseGameTable'
-import FreeGameTable from     '@/pages/project/FreeGameTable'
-import Project from      '@/pages/project/Project'
-import Home from         '@/pages/project/Home'
-import OverAll from      '@/pages/project/OverAll'
-import BaseGame from     '@/pages/project/BaseGame'
-import FreeGame from     '@/pages/project/FreeGame'
-import RTP from          '@/pages/project/RTP'
-import TotalNetWin from  '@/pages/project/TotalNetWin'
-import SurvivalRate from '@/pages/project/SurvivalRate'
+import OverAllTable from   '@/pages/project/OverAllTable'
+import BaseGameTable from  '@/pages/project/BaseGameTable'
+import FreeGameTable from  '@/pages/project/FreeGameTable'
+import Project from        '@/pages/project/Project'
+import Home from           '@/pages/project/Home'
+import OverAll from        '@/pages/project/OverAll'
+import BaseGame from       '@/pages/project/BaseGame'
+import FreeGame from       '@/pages/project/FreeGame'
+import RTP from            '@/pages/project/RTP'
+import TotalNetWin from    '@/pages/project/TotalNetWin'
+import SurvivalRate from   '@/pages/project/SurvivalRate'
+import ProjectSetting from '@/pages/project/ProjectSetting'
+import UploadFile from     '@/pages/project/UploadFile'
 
 Vue.use(Router)
 
@@ -97,6 +99,16 @@ const router = new Router({
           path: 'PlayerExperience/SurvivalRate',
           name: 'SurvivalRate',
           component: SurvivalRate
+        },
+        {
+          path: 'ProjectSetting',
+          name: 'ProjectSetting',
+          component: ProjectSetting
+        },
+        {
+          path: 'UploadFile',
+          name: 'UploadFile',
+          component: UploadFile
         }
       ]
     }
