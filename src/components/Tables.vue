@@ -2,7 +2,7 @@
   <v-layout row wrap>
     <p><h5>{{ name }}</h5></p>
     <v-layout row wrap>
-      <v-flex class="pb-1" v-for="info of getInfo" :key="info[0]">
+      <v-flex class="pa-1" v-for="info of getInfo" :key="info[0]">
         <v-card>
           <v-card-text>
             {{ info[0] }}
