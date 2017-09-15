@@ -61,7 +61,13 @@ export default {
     return client.get('/account', { headers: {'Authorization': token} })
   },
   createProject: function (token, data) {
-    return client.post('/project', { headers: {'Authorization': token}, data: data })
+    let config = {
+      headers: {
+        'Authorization': token,
+        'content-type': 'multipart/form-data'
+      }
+    }
+    return client.post('/project', data, config)
   },
   getAllProject: function (token) {
     return client.get('/project', { headers: {'Authorization': token} })
@@ -112,7 +118,13 @@ export default {
     return client.get('/chart/' + id + '/survivalRate?size=' + size, { headers: {'Authorization': token} })
   },
   uploadFiles: function (token, id, data) {
-    return client.put('/fileUpload/' + id, { headers: {'Authorization': token}, data: data })
+    let config = {
+      headers: {
+        'Authorization': token,
+        'content-type': 'multipart/form-data'
+      }
+    }
+    return client.put('/fileUpload/' + id, data, config)
   }
 }
 

@@ -6,19 +6,20 @@
             <v-flex xs1></v-flex>
             <v-flex xs6 pb-4>
               <v-flex xs6>
-                <file-input label="BaseGame Par Sheet" accept=".csv" @file="BasePar"></file-input>
-                <file-input label="BonusGame Par Sheet" accept=".csv" @file="BonusPar"></file-input>
-                <file-input label="OverAll Par Sheet" accept=".csv" @file="OverallPar"></file-input>
-                <file-input label="BaseGame Distribution" accept=".csv" @file="BaseDistribution"></file-input>
-                <file-input label="BonusGame Distribution" accept=".csv" @file="BonusDistribution"></file-input>
-                <file-input label="OverAll DisTribution" accept=".csv" @file="OverallDistribution"></file-input>
+                <file-input label="BaseGame Simulation Par Sheet" accept=".csv" @file="BaseSimPar"></file-input>
+                <file-input label="BonusGame Simulation Par Sheet" accept=".csv" @file="BonusSimPar"></file-input>
+                <file-input label="OverAll Simulation Par Sheet" accept=".csv" @file="OverallSimPar"></file-input>
+                <file-input label="BaseGame Spin Data" accept=".csv" @file="BaseSpinData"></file-input>
+                <file-input label="BonusGame Spin Data" accept=".csv" @file="BonusSpinData"></file-input>
+                <file-input label="OverAll Spin Data" accept=".csv" @file="OverallSpinData"></file-input>
               </v-flex>
             </v-flex>
             <v-flex xs5 pb-4>
               <v-flex xs7>
-                <file-input label="RTP" accept=".csv" @file="Rtp"></file-input>
-                <file-input label="Total Net Win" accept=".csv" @file="TotalNetWin"></file-input>
-                <file-input label="Survival Rate" accept=".csv" @file="SurvivalRate"></file-input>
+                <file-input label="BaseGame Theory Par Sheet" accept=".csv" @file="BaseTheoryPar"></file-input>
+                <file-input label="BonusGame Theory Par Sheet" accept=".csv" @file="BonusTheoryPar"></file-input>
+                <file-input label="OverAll Theory Par Sheet" accept=".csv" @file="OverallTheoryPar"></file-input>
+                <file-input label="OverAll Survival Rate" accept=".csv" @file="OverallSurvivalRate"></file-input>
               </v-flex>
             </v-flex>
             <v-flex xs1></v-flex>
@@ -30,19 +31,21 @@
 </template>
 
 <script>
+import api from '../../store/api'
 export default {
   data () {
     return {
-      files: ['basePar', 'bonusPar', 'overallPar', 'baseDistribution', 'bonusDistribution', 'overallDistribution', 'rtp', 'totalNetWin', 'survivalRate'],
-      basePar: null,
-      bonusPar: null,
-      overallPar: null,
-      baseDistribution: null,
-      bonusDistribution: null,
-      overallDistribution: null,
-      rtp: null,
-      totalNetWin: null,
-      survivalRate: null
+      files: ['baseSimPar', 'bonusSimPar', 'overallSimPar', 'baseTheoryPar', 'bonusTheoryPar', 'overallTheoryPar', 'baseSpinData', 'bonusSpinData', 'overallSpinData', 'overallSurvivalRate'],
+      baseSimPar: null,
+      bonusSimPar: null,
+      overallSimPar: null,
+      baseTheoryPar: null,
+      bonusTheoryPar: null,
+      overallTheoryPar: null,
+      baseSpinData: null,
+      bonusSpinData: null,
+      overallSpinData: null,
+      overallSurvivalRate: null
     }
   },
   methods: {
@@ -51,33 +54,41 @@ export default {
       for (let file of this.files) {
         form.append(file, this[file], this[file].name)
       }
+      api.uploadFiles(localStorage.getItem('token'), this.$store.state.projectId.id, form).then(() => {
+        console.log('success')
+      }).catch(error => {
+        console.log(error)
+      })
     },
-    BasePar (data) {
-      this.basePar = data
+    BaseSimPar (data) {
+      this.baseSimPar = data
     },
-    BonusPar (data) {
-      this.bonusPar = data
+    BonusSimPar (data) {
+      this.bonusSimPar = data
     },
-    OverallPar (data) {
-      this.overallPar = data
+    OverallSimPar (data) {
+      this.overallSimPar = data
     },
-    BaseDistribution (data) {
-      this.baseDistribution = data
+    BaseTheoryPar (data) {
+      this.baseTheoryPar = data
     },
-    BonusDistribution (data) {
-      this.bonusDistribution = data
+    BonusTheoryPar (data) {
+      this.bonusTheoryPar = data
     },
-    OverallDistribution (data) {
-      this.overallDistribution = data
+    OverallTheoryPar (data) {
+      this.overallTheoryPar = data
     },
-    Rtp (data) {
-      this.rtp = data
+    BaseSpinData (data) {
+      this.baseSpinData = data
     },
-    TotalNetWin (data) {
-      this.totalNetWin = data
+    BonusSpinData (data) {
+      this.bonusSpinData = data
     },
-    SurvivalRate (data) {
-      this.survivalRate = data
+    OverallSpinData (data) {
+      this.overallSpinData = data
+    },
+    OverallSurvivalRate (data) {
+      this.overallSurvivalRate = data
     }
   }
 }
