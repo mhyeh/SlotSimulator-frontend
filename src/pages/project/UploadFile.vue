@@ -50,14 +50,17 @@ export default {
   },
   methods: {
     send () {
-      let form = new FormData()
+      let promises = []
       for (let file of this.files) {
+        let form = new FormData()
         form.append(file, this[file], this[file].name)
+        form.append('name', file)
+        promises.push(api.uploadFiles(localStorage.getItem('token'), this.$store.state.projectId.id, form))
       }
-      api.uploadFiles(localStorage.getItem('token'), this.$store.state.projectId.id, form).then(() => {
+      Promise.all(promises).then(() => {
         console.log('success')
       }).catch(error => {
-        console.log(error)
+        console.log(error.response.data)
       })
     },
     BaseSimPar (data) {
