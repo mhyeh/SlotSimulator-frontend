@@ -35,7 +35,7 @@ import api from '../../store/api'
 export default {
   data () {
     return {
-      files: ['baseSimPar', 'bonusSimPar', 'overallSimPar', 'baseTheoryPar', 'bonusTheoryPar', 'overallTheoryPar', 'baseSpinData', 'bonusSpinData', 'overallSpinData', 'overallSurvivalRate'],
+      files: ['baseSimPar', 'bonusSimPar', 'overallSimPar', 'baseSpinData', 'bonusSpinData', 'overallSpinData', 'overallSurvivalRate', 'baseTheoryPar', 'bonusTheoryPar', 'overallTheoryPar'],
       baseSimPar: null,
       bonusSimPar: null,
       overallSimPar: null,
@@ -52,10 +52,12 @@ export default {
     send () {
       let promises = []
       for (let file of this.files) {
-        let form = new FormData()
-        form.append(file, this[file], this[file].name)
-        form.append('name', file)
-        promises.push(api.uploadFiles(localStorage.getItem('token'), this.$store.state.projectId.id, form))
+        if (this[file] !== null) {
+          let form = new FormData()
+          form.append(file, this[file], this[file].name)
+          form.append('name', file)
+          promises.push(api.uploadFiles(localStorage.getItem('token'), this.$store.state.projectId.id, form))
+        }
       }
       Promise.all(promises).then(() => {
         console.log('success')
