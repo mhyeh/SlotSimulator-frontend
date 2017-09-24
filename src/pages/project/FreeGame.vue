@@ -123,7 +123,7 @@ export default {
       let result = []
       this.categories = []
       for (let index in data) {
-        if (data[index] !== 0) {
+        if (data[index] !== 0 && data[index] !== null) {
           result.push([index, data[index]])
           this.categories.push(parseFloat(index))
         }

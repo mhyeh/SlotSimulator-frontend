@@ -2,7 +2,7 @@ import axois from 'axios'
 
 let config = {
   baseURL: 'https://slot.dacsc.club',
-  timeout: 30000
+  timeout: 120000000
 }
 
 let client = axois.create(config)

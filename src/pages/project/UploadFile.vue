@@ -62,7 +62,7 @@ export default {
       Promise.all(promises).then(() => {
         console.log('success')
       }).catch(error => {
-        console.log(error.response.data)
+        console.log(error.message)
       })
     },
     BaseSimPar (data) {
