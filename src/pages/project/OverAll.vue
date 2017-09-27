@@ -19,14 +19,14 @@
       <v-card-text>
         <p v-if="error !== ''" class="ma-0">{{ error }}</p>
         <v-layout v-else-if="overAll.length !== 0" row wrap>
-          <v-flex xs9>
+          <v-flex xs10>
             <v-card>
               <v-card-text>
                 <high-chart :options="defaultOption(overAll, categories)" style="display: flex"></high-chart>
               </v-card-text>
             </v-card>
           </v-flex>
-          <v-flex xs3>
+          <v-flex xs2 class="pl-3">
             <v-card>
               <v-card-text>
                 <support-data :option="tableData"></support-data>
