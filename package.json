@@ -12,6 +12,7 @@
   },
   "dependencies": {
     "axios": "^0.16.2",
+    "bignumber.js": "^4.0.4",
     "csvjson": "^4.3.3",
     "highcharts": "^5.0.14",
     "lodash": "^4.17.4",

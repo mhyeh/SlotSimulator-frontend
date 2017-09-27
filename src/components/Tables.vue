@@ -27,68 +27,68 @@
 </template>
 
 <script>
-  export default {
-    props: ['options', 'theory', 'name'],
-    data () {
-      return {
-        labels: ['Symbol', 'Length', 'Hits', 'Frequency', 'Payout']
+export default {
+  props: ['options', 'theory', 'name'],
+  data () {
+    return {
+      labels: ['Symbol', 'Length', 'Hits', 'Frequency', 'Payout']
+    }
+  },
+  computed: {
+    getInfo () {
+      let result = []
+      let i = 2
+      if (this.theory) {
+        i = 4
       }
+      for (; i < 12; i++) {
+        result.push(this.options[i])
+      }
+      return result
     },
-    computed: {
-      getInfo () {
-        let result = []
-        let i = 2
-        if (this.theory) {
-          i = 4
-        }
-        for (; i < 12; i++) {
-          result.push(this.options[i])
-        }
-        return result
-      },
-      getHeader () {
-        let header = []
+    getHeader () {
+      let header = []
 
+      header.push({
+        text: this.options[12][0],
+        align: 'left',
+        sortable: false,
+        value: this.options[12]
+      })
+
+      for (let i = 1; i < this.options[12].length; i++) {
         header.push({
-          text: this.options[12][0],
-          align: 'left',
+          text: this.options[12][i],
           sortable: false,
-          value: this.options[12]
+          value: this.options[12][i]
         })
-
-        for (let i = 1; i < this.options[12].length; i++) {
-          header.push({
-            text: this.options[12][i],
-            sortable: false,
-            value: this.options[12][i]
-          })
-        }
-
-        return header
-      },
-      getItems () {
-        let items = []
-
-        for (let i = 13; i < this.options.length - 1; i++) {
-          let data = {
-            Symbol: ''
-          }
-          for (let j = 0; j < this.labels.length; j++) {
-            data[this.labels[j]] = this.options[i][j]
-          }
-          items.push(data)
-        }
-        return items
       }
+
+      return header
     },
-    methods: {
-      format (data) {
-        if (parseInt(data).toString() === data) {
-          return data.replace(/\B(?=(\d{3})+(?!\d))/g, ',')
-        } else {
-          return data
+    getItems () {
+      let items = []
+
+      for (let i = 13; i < this.options.length - 1; i++) {
+        let data = {
+          Symbol: ''
         }
+        for (let j = 0; j < this.labels.length; j++) {
+          data[this.labels[j]] = this.options[i][j]
+        }
+        items.push(data)
+      }
+      return items
+    }
+  },
+  methods: {
+    format (data) {
+      if (parseInt(data).toString() === data) {
+        return data.replace(/\B(?=(\d{3})+(?!\d))/g, ',')
+      } else {
+        return data
       }
     }
   }
+}
 </script>

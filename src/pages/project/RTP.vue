@@ -53,6 +53,8 @@
 </template>
 
 <script>
+import bigNumber from 'bignumber.js'
+
 import api from '../../store/api'
 import _ from 'lodash'
 export default {

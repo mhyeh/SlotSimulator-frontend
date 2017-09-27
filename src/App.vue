@@ -183,6 +183,7 @@ export default {
     },
     changeProject (item) {
       this.$store.commit('chooseProject', item)
+      this.$router.push('/Project/')
     },
     login () {
       let self = this
