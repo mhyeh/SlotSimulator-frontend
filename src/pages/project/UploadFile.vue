@@ -1,6 +1,6 @@
 <template>
   <v-layout justify-center>
-    <v-flex xs10>
+    <v-flex xs10 v-if="isSuccess">
       <v-card>
         <v-layout row wrap pa-4 ma-4>
             <v-flex xs1></v-flex>
@@ -27,6 +27,7 @@
         </v-layout>
       </v-card>
     </v-flex>
+    <v-progress-circular indeterminate class="primary--text" v-else :size="50" style="width:100%;"></v-progress-circular>
   </v-layout>
 </template>
 
@@ -45,11 +46,13 @@ export default {
       baseSpinData: null,
       bonusSpinData: null,
       overallSpinData: null,
-      overallSurvivalRate: null
+      overallSurvivalRate: null,
+      isSuccess: true
     }
   },
   methods: {
     send () {
+      this.isSuccess = false
       let promises = []
       for (let file of this.files) {
         if (this[file] !== null) {
@@ -60,6 +63,8 @@ export default {
         }
       }
       Promise.all(promises).then(() => {
+        this.isSuccess = true
+        this.$router.push('/Project/')
         console.log('success')
       }).catch(error => {
         console.log(error.message)
