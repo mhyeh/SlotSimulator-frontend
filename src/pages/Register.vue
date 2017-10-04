@@ -39,7 +39,7 @@ export default {
       let self = this
       let token
       if (self.account !== '' && self.password !== '' && self.checkPassword !== '' && self.name !== '') {
-        api.register(self.account, self.password, self.checkPassword, self.name).then(function (res) {
+        api.register(self.account, self.password, self.checkPassword, self.name).then(res => {
           token = res.data.token
           return api.getUserInfo(token)
         }).then(res => {

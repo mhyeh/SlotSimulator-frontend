@@ -37,7 +37,6 @@ export default {
       if (self.account !== '' && self.password !== '') {
         api.login(self.account, self.password).then(res => {
           token = res.data.token
-          // self.$store.commit('login', token)
           localStorage.setItem('token', token)
           self.$emit('login')
         }).catch(res => {

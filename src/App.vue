@@ -164,12 +164,6 @@ export default {
     projects: function () {
       return this.$store.state.projects
     }
-    // isLogin: function () {
-    //   return localStorage.getItem('isLogin')
-    // },
-    // name: function () {
-    //   return localStorage.getItem('name')
-    // }
   },
   methods: {
     generate (title) {

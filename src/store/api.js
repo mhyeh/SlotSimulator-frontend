@@ -7,6 +7,7 @@ let config = {
 
 let client = axois.create(config)
 
+// 用來設定給分分布的range，可以改成讀設定檔
 let _distribution = [
   {
     'lower': 0,
