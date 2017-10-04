@@ -7,7 +7,6 @@
 <script>
 let Highcharts = require('highcharts')
 require('highcharts/modules/boost')(Highcharts)
-// require('highcharts/modules/exporting')(Highcharts)
 
 export default {
   props: {
