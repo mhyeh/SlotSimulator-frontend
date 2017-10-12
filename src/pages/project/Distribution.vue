@@ -18,11 +18,11 @@
     <v-card>
       <v-card-text>
         <p v-if="error !== ''" class="ma-0">{{ error }}</p>
-        <v-layout v-else-if="freeGame.length !== 0" row wrap>
+        <v-layout v-else-if="distribution.length !== 0" row wrap>
           <v-flex xs10>
             <v-card>
               <v-card-text>
-                <high-chart :options="defaultOption(freeGame, categories)" style="display: flex"></high-chart>
+                <high-chart :options="defaultOption(distribution, categories)" style="display: flex"></high-chart>
               </v-card-text>
             </v-card>
           </v-flex>
@@ -46,12 +46,15 @@ import bigNumber from 'bignumber.js'
 import api from '../../store/api'
 import _ from 'lodash'
 export default {
+  props: ['type', 'title'],
   data () {
     return {
       tableData: {},
-      freeGame: [],
+      distribution: [],
       categories: [],
       size: 4000000,
+      min: 0,
+      max: 0,
       error: '',
       network: false
     }
@@ -62,21 +65,24 @@ export default {
       this.start()
     }.bind(this))
   },
+  watch: {
+    '$route': 'start'
+  },
   methods: {
     start () {
-      var self = this
-      self.freeGame = []
+      let self = this
+      self.distribution = []
       self.error = ''
       self.network = true
-      api.freegame(localStorage.getItem('token'), self.$store.state.projectId.id, self.size, '').then(res => {
-        self.freeGame  = self.conertData(res.data.chartData)
+      api.getDistribution(localStorage.getItem('token'), self.$store.state.projectId.id, self.size, '', this.type).then(res => {
+        self.distribution   = self.conertData(res.data.chartData)
         self.tableData = res.data.tableData
         self.network   = false
       }).catch(error => {
         console.log(error)
         self.error = error.message
         self.network = false
-        if (error.response.code === 104) {
+        if (error.response.data.code === 104) {
           self.$emit('logout')
         }
       })
@@ -87,7 +93,7 @@ export default {
           type: 'spline'
         },
         title: {
-          text: 'Wins Distribution (Bonus Game)'
+          text: 'Wins Distribution (' + this.title + ')'
         },
         xAxis: {
           categories: categories,
@@ -125,7 +131,7 @@ export default {
       let result = []
       this.categories = []
       for (let index in data) {
-        if (data[index] !== 0 && data[index] !== null) {
+        if (data[index] !== 0) {
           result.push([index, data[index]])
           this.categories.push(parseFloat(index))
         }

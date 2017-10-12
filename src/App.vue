@@ -1,7 +1,7 @@
 <template>
   <v-app>
     <template v-if="!$route.path.match('Project')"> 
-      <v-toolbar fixed class="teal lighten-1" dark>
+      <v-toolbar class="teal lighten-1" dark>
         <v-spacer></v-spacer>
         <v-toolbar-title>{{ title }}</v-toolbar-title>
         <v-spacer></v-spacer>
@@ -18,7 +18,7 @@
       </v-toolbar>
     </template> 
     <template v-else>
-      <v-navigation-drawer absolute persistent light :mini-variant.sync="mini" v-model="drawer" overflow class="grey lighten-2">
+      <v-navigation-drawer enable-resize-watcher app absolute persistent light  v-model="drawer" overflow class="grey lighten-2">
         <v-toolbar flat class="grey lighten-2">
           <v-list class="pa-0 grey lighten-2">
             <v-list-tile avatar tag="div">
@@ -28,11 +28,6 @@
               <v-list-tile-content>
                 <v-list-tile-title>Chart Generator</v-list-tile-title>
               </v-list-tile-content>
-              <v-list-tile-action>
-                <v-btn icon @click.native.stop="mini = !mini" ripple>
-                  <v-icon>chevron_left</v-icon>
-                </v-btn>
-              </v-list-tile-action>
             </v-list-tile>
           </v-list>
         </v-toolbar>
@@ -75,7 +70,7 @@
           </v-list-group>
         </v-list>
       </v-navigation-drawer>
-      <v-toolbar fixed class="teal lighten-1" dark>
+      <v-toolbar app class="teal lighten-1" dark>
         <v-toolbar-side-icon @click.native.stop="drawer = !drawer"></v-toolbar-side-icon>
         <v-toolbar-title>{{ title }}</v-toolbar-title>
         <v-menu :nudge-width="100">
@@ -104,9 +99,11 @@
     </template>
     
     <main>
-      <v-container fluid>
-        <router-view v-on:login="login" v-on:logout="logout" id="main"></router-view>
-      </v-container>
+      <v-content>
+        <v-container fluid>
+          <router-view v-on:login="login" v-on:logout="logout" id="main"></router-view>
+        </v-container>
+      </v-content>
     </main>
   </v-app>
 </template>
@@ -154,6 +151,7 @@ export default {
         { title: 'Upload File' }
       ],
       mini: false,
+      right: null,
       name: ''
     }
   },

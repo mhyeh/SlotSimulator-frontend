@@ -8,14 +8,10 @@ import Register from '@/pages/Register'
 
 import ProjectPage from '@/pages/ProjectPage'
 
-import OverAllTable from   '@/pages/project/OverAllTable'
-import BaseGameTable from  '@/pages/project/BaseGameTable'
-import FreeGameTable from  '@/pages/project/FreeGameTable'
+import ParSheet from       '@/pages/project/ParSheet'
 import Project from        '@/pages/project/Project'
 import Home from           '@/pages/project/Home'
-import OverAll from        '@/pages/project/OverAll'
-import BaseGame from       '@/pages/project/BaseGame'
-import FreeGame from       '@/pages/project/FreeGame'
+import Distribution from   '@/pages/project/Distribution'
 import RTP from            '@/pages/project/RTP'
 import TotalNetWin from    '@/pages/project/TotalNetWin'
 import SurvivalRate from   '@/pages/project/SurvivalRate'
@@ -58,32 +54,38 @@ const router = new Router({
         {
           path: 'ParSheet/OverAll',
           name: 'OverAllTable',
-          component: OverAllTable
+          component: ParSheet,
+          props: {table: 'overall', title: 'Over All'}
         },
         {
           path: 'ParSheet/BaseGame',
           name: 'BaseGameTable',
-          component: BaseGameTable
+          component: ParSheet,
+          props: {table: 'base', title: 'Base Game'}
         },
         {
           path: 'ParSheet/BonusGame',
           name: 'FreeGameTable',
-          component: FreeGameTable
+          component: ParSheet,
+          props: {table: 'bonus', title: 'Bonus Game'}
         },
         {
           path: 'WinsDistribution/OverAll',
           name: 'OverAll',
-          component: OverAll
+          component: Distribution,
+          props: {type: 'overall', title: 'Over All'}
         },
         {
           path: 'WinsDistribution/BaseGame',
           name: 'BaseGame',
-          component: BaseGame
+          component: Distribution,
+          props: {type: 'basegame', title: 'Base Game'}
         },
         {
           path: 'WinsDistribution/BonusGame',
           name: 'FreeGame',
-          component: FreeGame
+          component: Distribution,
+          props: {type: 'freegame', title: 'Bonus Game'}
         },
         {
           path: 'PlayerExperience/RTP',

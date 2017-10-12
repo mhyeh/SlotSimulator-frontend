@@ -74,7 +74,7 @@ import api from '../store/api'
 export default {
   data () {
     return {
-      formDatas: ['name', 'typeId', 'block', 'thread', 'runTime', 'rows', 'reels', 'betCost'],
+      formDatas: ['name', 'typeId', 'block', 'thread', 'runTime', 'rows', 'reels', 'betCost', 'hasPattern'],
       files: ['symbol', 'baseStops', 'bonusStops', 'attr', 'basePattern', 'bonusPattern'],
       edit: [true, false, false],
       name: 'Project1',

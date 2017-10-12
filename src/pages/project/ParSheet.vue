@@ -1,10 +1,10 @@
 <template>
   <v-layout>
-    <v-flex xs6>
+    <v-flex xs6 class="mr-2">
       <v-card>
         <v-card-text>
           <p v-if="theoryError !== ''" class="ma-0">{{ '' }}</p>
-          <tables v-else-if="freeGameTheory.length !== 0" :options="freeGameTheory"  theory="true" name="Free Game Theory PAR Sheet" style="display: flex"></tables>
+          <tables v-else-if="theory.length !== 0" :options="theory" theory="true" :name="title + ' Theory PAR Sheet'" style="display: flex"></tables>
           <v-progress-circular indeterminate class="primary--text" v-else :size="50" style="width:100%;"></v-progress-circular>
         </v-card-text>
       </v-card>
@@ -13,7 +13,7 @@
       <v-card>
         <v-card-text>
           <p v-if="simulationError !== ''" class="ma-0">{{ '' }}</p>
-          <tables v-else-if="freeGame.length !== 0" :options="freeGame" name="Free Game Simulation PAR Sheet" style="display: flex"></tables>
+          <tables v-else-if="simulation.length !== 0" :options="simulation" :name="title + ' Simulation PAR Sheet'" style="display: flex"></tables>
           <v-progress-circular indeterminate class="primary--text" v-else :size="50" style="width:100%;"></v-progress-circular>
         </v-card-text>
       </v-card>
@@ -27,10 +27,11 @@ import papaparse from 'papaparse'
 import api from '../../store/api'
 
 export default {
+  props: ['table', 'title'],
   data () {
     return {
-      freeGame: '',
-      freeGameTheory: '',
+      simulation: '',
+      theory: '',
       simulationError: '',
       theoryError: ''
     }
@@ -38,32 +39,35 @@ export default {
   beforeMount () {
     this.start()
   },
+  watch: {
+    '$route': 'start'
+  },
   methods: {
     start () {
       let self = this
-      api.freegameSimulation(localStorage.getItem('token'), self.$store.state.projectId.id).then(res => {
-        papaparse.parse(res.data.simulation, {
+      api.getPARSheet(localStorage.getItem('token'), self.$store.state.projectId.id, this.table + 'Sim').then(res => {
+        papaparse.parse(res.data.table, {
           complete: function (result) {
-            self.freeGame = result.data
+            self.simulation = result.data
           }
         })
       }).catch(error => {
         console.log(error)
         self.simulationError = error.message
-        if (error.response.code === 104) {
+        if (error.response.data.code === 104) {
           self.$emit('logout')
         }
       })
-      api.freegameTheory(localStorage.getItem('token'), self.$store.state.projectId.id).then(res => {
-        papaparse.parse(res.data.theory, {
+      api.getPARSheet(localStorage.getItem('token'), self.$store.state.projectId.id, this.table + 'Theory').then(res => {
+        papaparse.parse(res.data.table, {
           complete: function (result) {
-            self.freeGameTheory = result.data
+            self.theory = result.data
           }
         })
       }).catch(error => {
         console.log(error)
         self.theoryError = error.message
-        if (error.response.code === 104) {
+        if (error.response.data.code === 104) {
           self.$emit('logout')
         }
       })
