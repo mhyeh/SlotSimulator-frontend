@@ -136,7 +136,6 @@ export default {
           this.categories.push(parseFloat(index))
         }
       }
-      // console.log(result)
       this.categories.sort((x, y) => {
         if (x > y) return 1
         else if (x < y) return -1
@@ -149,7 +148,7 @@ export default {
       })
       return result
     },
-    change: _.debounce(function () {
+    change: _.debounce(() => {
       this.start()
     }, 1000)
   }

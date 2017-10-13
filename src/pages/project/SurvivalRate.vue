@@ -88,7 +88,7 @@ export default {
         }
       })
     },
-    change: _.debounce(function () {
+    change: _.debounce(() => {
       this.start()
     }, 1000)
   }
