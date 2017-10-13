@@ -18,7 +18,7 @@
       </v-toolbar>
     </template> 
     <template v-else>
-      <v-navigation-drawer enable-resize-watcher app absolute persistent light  v-model="drawer" overflow class="grey lighten-2">
+      <v-navigation-drawer app absolute persistent light  v-model="drawer" overflow class="grey lighten-2">
         <v-toolbar flat class="grey lighten-2">
           <v-list class="pa-0 grey lighten-2">
             <v-list-tile avatar tag="div">
@@ -99,11 +99,14 @@
     </template>
     
     <main>
-      <v-content>
+      <v-content v-if="$route.path.match('Project')">
         <v-container fluid>
           <router-view v-on:login="login" v-on:logout="logout" id="main"></router-view>
         </v-container>
       </v-content>
+      <v-container v-else fluid>
+        <router-view v-on:login="login" v-on:logout="logout" id="main"></router-view>
+      </v-container>
     </main>
   </v-app>
 </template>
@@ -150,8 +153,6 @@ export default {
         { title: 'Project Setting' },
         { title: 'Upload File' }
       ],
-      mini: false,
-      right: null,
       name: ''
     }
   },
@@ -162,12 +163,6 @@ export default {
     projects: function () {
       return this.$store.state.projects
     }
-    // isLogin: function () {
-    //   return localStorage.getItem('isLogin')
-    // },
-    // name: function () {
-    //   return localStorage.getItem('name')
-    // }
   },
   methods: {
     generate (title) {

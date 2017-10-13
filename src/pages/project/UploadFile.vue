@@ -1,6 +1,9 @@
 <template>
   <v-layout justify-center>
-    <v-flex xs10 v-if="isSuccess">
+    <v-flex xs10 v-if="uploadError">
+      error
+    </v-flex>
+    <v-flex xs10 v-else-if="isSuccess">
       <v-card>
         <v-layout row wrap pa-4 ma-4>
             <v-flex xs1></v-flex>
@@ -23,7 +26,7 @@
               </v-flex>
             </v-flex>
             <v-flex xs1></v-flex>
-            <v-btn primary @click="send">SEND</v-btn>
+            <v-btn class="blue darken-2 grey--text text--lighten-4" @click="send">SEND</v-btn>
         </v-layout>
       </v-card>
     </v-flex>
@@ -47,12 +50,14 @@ export default {
       bonusSpinData: null,
       overallSpinData: null,
       overallSurvivalRate: null,
-      isSuccess: true
+      isSuccess: true,
+      uploadError: false
     }
   },
   methods: {
     send () {
-      this.isSuccess = false
+      this.isSuccess   = false
+      this.uploadError = false
       let promises = []
       for (let file of this.files) {
         if (this[file] !== null) {
@@ -67,6 +72,7 @@ export default {
         this.$router.push('/Project/')
         console.log('success')
       }).catch(error => {
+        this.uploadError = true
         console.log(error.message)
       })
     },
