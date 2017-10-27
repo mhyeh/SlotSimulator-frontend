@@ -11,7 +11,7 @@
             </v-card>
           </v-flex>
           <div class="projects pa-2">
-            <project-creater v-on:add="add"></project-creater>
+            <project-creater v-on:reset="reset" v-on:logout="$emit('logout')"></project-creater>
           </div>
         </v-layout>
       </v-flex>
@@ -46,9 +46,10 @@ export default {
   methods: {
     go (item) {
       this.$store.commit('chooseProject', item)
+      this.$emit('getOthersInfoPageLink')
       this.$router.push('/Project')
     },
-    add () {
+    reset () {
       location.reload()
     }
   }

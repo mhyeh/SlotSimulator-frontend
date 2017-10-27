@@ -83,25 +83,19 @@ export default {
     return client.get('/projectType/' + id, { headers: {'Authorization': token} })
   },
   getPARSheet: function (token, id, type) {
-    return client.get('/table/' + id + '/' + type, { headers: {'Authorization': token} })
+    return client.get('/analysisData/table/' + id + '/' + type, { headers: {'Authorization': token} })
   },
   getDistribution: function (token, id, size, distribution, type) {
-    return client.get('/chart/' + id + '/distribution?size=' + size + '&distribution=' + JSON.stringify(_distribution) + '&table=' + type, { headers: {'Authorization': token} })
-  },
-  basegame: function (token, id, size, distribution) {
-    return client.get('/chart/' + id + '/baseGame?size=' + size + '&distribution=' + JSON.stringify(_distribution), { headers: {'Authorization': token} })
-  },
-  freegame: function (token, id, size, distribution) {
-    return client.get('/chart/' + id + '/freeGame?size=' + size + '&distribution=' + JSON.stringify(_distribution), { headers: {'Authorization': token} })
+    return client.get('/analysisData/chart/' + id + '/distribution?size=' + size + '&distribution=' + JSON.stringify(_distribution) + '&table=' + type, { headers: {'Authorization': token} })
   },
   rtp: function (token, id, size, step, range) {
-    return client.get('/chart/' + id + '/rtp?size=' + size + '&step=' + step + '&range=' + range, { headers: {'Authorization': token} })
+    return client.get('/analysisData/chart/' + id + '/rtp?size=' + size + '&step=' + step + '&range=' + range, { headers: {'Authorization': token} })
   },
   totalNetWin: function (token, id, size, range) {
-    return client.get('/chart/' + id + '/totalNetWin?size=' + size + '&range=' + range, { headers: {'Authorization': token} })
+    return client.get('/analysisData/chart/' + id + '/totalNetWin?size=' + size + '&range=' + range, { headers: {'Authorization': token} })
   },
   survivalRate: function (token, id, size) {
-    return client.get('/chart/' + id + '/survivalRate?size=' + size, { headers: {'Authorization': token} })
+    return client.get('/analysisData/chart/' + id + '/survivalRate?size=' + size, { headers: {'Authorization': token} })
   },
   uploadFiles: function (token, id, data) {
     let config = {
@@ -111,6 +105,9 @@ export default {
       }
     }
     return client.put('/fileUpload/' + id, data, config)
+  },
+  getConfig: function (token, id) {
+    return client.get('/project/' + id + '/getConfig', { headers: {'Authorization': token} })
   }
 }
 

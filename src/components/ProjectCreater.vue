@@ -8,8 +8,6 @@
             <v-stepper-step step="1" :complete="e1 > 1" :editable="edit[0]">Basic Setting</v-stepper-step>
             <v-divider></v-divider>
             <v-stepper-step step="2" :complete="e1 > 2" :editable="edit[1]">Files Upload</v-stepper-step>
-            <v-divider></v-divider>
-            <v-stepper-step step="3" :complete="e1 > 3" :editable="edit[2]">Others Setting</v-stepper-step>
           </v-stepper-header>
           <v-stepper-content step="1">
             <v-layout row wrap pt-4>
@@ -20,6 +18,7 @@
                   <v-text-field label="Block" type="number" min="1" max="5000" required v-model="block"></v-text-field>
                   <v-text-field label="Thread" type="number" min="1" max="1000" required v-model="thread"></v-text-field>
                   <v-text-field label="Run Time" type="number" min="1" max="1000000000" required v-model="runTime"></v-text-field>
+                  <file-input ref="file" label="Bonus Game Logic" @file="GameLogic"></file-input>
                 </v-flex>
               </v-flex>
               <v-flex xs5 pb-4>
@@ -49,6 +48,7 @@
                   <file-input ref="file" label="BaseStops" accept=".csv" @file="BaseStops"></file-input>
                   <file-input ref="file" label="BonusStops" accept=".csv" @file="BonusStops"></file-input>
                   <file-input ref="file" label="Attributes" accept=".csv" @file="Attributes"></file-input>
+                  <file-input ref="file" label="Config" accept=".js" @file="Config"></file-input>
                 </v-flex>
               </v-flex>
               <v-flex xs5 pb-4>
@@ -57,28 +57,6 @@
                   <file-input ref="file" label="BonusPayTable" accept=".csv" @file="BonusPayTable"></file-input>
                   <file-input ref="file" label="BasePattern" accept=".csv" @file="BasePattern"></file-input>
                   <file-input ref="file" label="BonusPattern" accept=".csv" @file="BonusPattern"></file-input>
-                </v-flex>
-              </v-flex>
-              <v-flex xs1></v-flex>
-              <v-btn class="blue darken-2 grey--text text--lighten-4" @click.native="e1 = 3, edit[2] = true">CONTINUE</v-btn>
-              <v-btn flat @click="close">CLOSE</v-btn>
-            </v-layout>
-          </v-stepper-content>
-          <v-stepper-content step="3">
-            <v-layout row wrap pt-4>
-              <v-flex xs1></v-flex>
-              <v-flex xs6 pb-4>
-                <v-flex xs6>
-                  <file-input ref="file" label="PAR Sheet Page Setting" accept=".json" @file="PARSheet"></file-input>
-                  <file-input ref="file" label="Distribution Page Setting" accept=".json" @file="Distribution"></file-input>
-                  <file-input ref="file" label="RTP Page Setting" accept=".json" @file="RTP"></file-input>
-                  <file-input ref="file" label="Total Net Win Page Setting" accept=".json" @file="TotalNetWin"></file-input>
-                </v-flex>
-              </v-flex>
-              <v-flex xs5 pb-4>
-                <v-flex xs7>
-                  <file-input ref="file" label="Survival Rate Page Setting" accept=".json" @file="SurvivalRate"></file-input>
-                  <file-input ref="file" label="Others Info Page Setting" accept=".json" @file="OthersInfo"></file-input>
                 </v-flex>
               </v-flex>
               <v-flex xs1></v-flex>
@@ -100,7 +78,6 @@ export default {
     return {
       formDatas: ['name', 'typeId', 'block', 'thread', 'runTime', 'rows', 'reels', 'betCost'],
       files: ['symbol', 'baseStops', 'bonusStops', 'attr', 'basePattern', 'bonusPattern', 'basePayTable', 'bonusPayTable'],
-      settings: ['parSheet', 'distribution', 'rtp', 'totalNetWin', 'survivalRate', 'othersInfo'],
       edit: [true, false, false],
       name: 'Project1',
       typeId: 1,
@@ -118,12 +95,8 @@ export default {
       bonusPattern: null,
       basePayTable: null,
       bonusPayTable: null,
-      parSheet: null,
-      distribution: null,
-      rtp: null,
-      totalNetWin: null,
-      survivalRate: null,
-      othersInfo: null,
+      config: null,
+      gameLogic: null,
       items: [],
       e1: 1,
       dialog: false
@@ -138,30 +111,27 @@ export default {
       }
       for (let file of this.files) {
         if (this[file] !== null) {
-          console.log(file)
           form.append(file, this[file], this[file].name)
         }
       }
-      for (let setting of this.settings) {
-        if (this[setting] !== null) {
-          console.log(setting)
-          form.append(setting, this[setting], this[setting].name)
-        }
+      if (this.config !== null) {
+        form.append('config', this.config, this.config.name)
+      }
+      if (this.gameLogic !== null) {
+        form.append('gameLogic', this.gameLogic, this.gameLogic.name)
       }
       api.createProject(localStorage.getItem('token'), form).then(() => {
-        self.reset()
-        self.$emit('add')
+        self.$emit('reset')
       }).catch(error => {
-        console.log(error)
-        self.reset()
+        if (error.response.data.code === 104) {
+          self.$emit('logout')
+        } else {
+          self.$emit('reset')
+        }
       })
     },
     close () {
-      this.reset()
-    },
-    reset () {
-      Object.assign(this.$data, this.$options.data.apply(this))
-      this.getProjectType()
+      this.$emit('reset')
     },
     Symbols (file) {
       this.symbol = file
@@ -187,23 +157,11 @@ export default {
     BonusPattern (file) {
       this.bonusPattern = file
     },
-    PARSheet (file) {
-      this.parSheet = file
+    GameLogic (file) {
+      this.gameLogic = file
     },
-    Distribution (file) {
-      this.distribution = file
-    },
-    RTP (file) {
-      this.rtp = file
-    },
-    TotalNetWin (file) {
-      this.totalNetWin = file
-    },
-    SurvivalRate (file) {
-      this.survivalRate = file
-    },
-    OthersInfo (file) {
-      this.othersInfo = file
+    Config (file) {
+      this.config = file
     },
     getProjectType () {
       let self = this

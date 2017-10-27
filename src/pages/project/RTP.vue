@@ -83,7 +83,6 @@ export default {
       self.error = ''
       self.network = true
       api.rtp(localStorage.getItem('token'), self.$store.state.projectId.id, self.size, self.step, self.range).then(res => {
-        console.log(res.data)
         self.rtp       = self.conertData(res.data.chartData)
         self.tableData = res.data.tableData
         self.network   = false

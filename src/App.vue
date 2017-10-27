@@ -105,7 +105,7 @@
         </v-container>
       </v-content>
       <v-container v-else fluid>
-        <router-view v-on:login="login" v-on:logout="logout" id="main"></router-view>
+        <router-view v-on:login="login" v-on:logout="logout" v-on:getOthersInfoPageLink="getOthersInfoPageLink" id="main"></router-view>
       </v-container>
     </main>
   </v-app>
@@ -165,6 +165,24 @@ export default {
     }
   },
   methods: {
+    getOthersInfoPageLink () {
+      let self = this
+      api.getConfig(localStorage.getItem('token'), self.$store.state.projectId.id).then(res => {
+        let pages = res.data.pages
+        let items = []
+        for (let i of pages) {
+          items.push({ title: i.title })
+        }
+        while (self.lists.length > 3) {
+          self.lists.pop()
+        }
+        self.lists.push({
+          action: 'mdi-chevron-down',
+          title: 'OthersInfo',
+          items: items
+        })
+      })
+    },
     generate (title) {
       if (title === 'Home') {
         this.$router.push('/Account/')

@@ -17,6 +17,7 @@ import TotalNetWin from    '@/pages/project/TotalNetWin'
 import SurvivalRate from   '@/pages/project/SurvivalRate'
 import ProjectSetting from '@/pages/project/ProjectSetting'
 import UploadFile from     '@/pages/project/UploadFile'
+import OthersInfo from     '@/pages/project/OthersInfo'
 
 Vue.use(Router)
 
@@ -111,6 +112,11 @@ const router = new Router({
           path: 'UploadFile',
           name: 'UploadFile',
           component: UploadFile
+        },
+        {
+          path: 'OthersInfo/:name',
+          name: 'OthersInfo',
+          component: OthersInfo
         }
       ]
     }
