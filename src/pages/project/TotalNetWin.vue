@@ -123,7 +123,7 @@ export default {
       })
       return result
     },
-    change: _.debounce(() => {
+    change: _.debounce(function () {
       this.start()
     }, 1000)
   }

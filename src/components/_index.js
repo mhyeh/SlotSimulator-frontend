@@ -1,13 +1,13 @@
 import HighChart      from './HighChart.vue'
-import Tables         from './Tables.vue'
-import SupportData    from './SupportData.vue'
+import ParSheet       from './ParSheet.vue'
 import ProjectCreater from './ProjectCreater.vue'
 import FileInput      from './FileInput.vue'
+import Tables       from './Tables'
 
 export default {
   HighChart,
-  Tables,
-  SupportData,
+  ParSheet,
   ProjectCreater,
-  FileInput
+  FileInput,
+  Tables
 }

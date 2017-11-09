@@ -108,6 +108,9 @@ export default {
   },
   getConfig: function (token, id) {
     return client.get('/project/' + id + '/getConfig', { headers: {'Authorization': token} })
+  },
+  getOthersData: function (token, id, config) {
+    return client.get('/analysisData/others/' + id + '?config=' + JSON.stringify(config), { headers: {'Authorization': token} })
   }
 }
 

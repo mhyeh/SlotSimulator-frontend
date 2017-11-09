@@ -41,7 +41,7 @@
           <v-flex xs2 class="pl-3">
             <v-card>
               <v-card-text>
-                <support-data :option="tableData"></support-data>
+                <tables :options="tableData"></tables>
               </v-card-text>
             </v-card>
           </v-flex>
@@ -84,7 +84,7 @@ export default {
       self.network = true
       api.rtp(localStorage.getItem('token'), self.$store.state.projectId.id, self.size, self.step, self.range).then(res => {
         self.rtp       = self.conertData(res.data.chartData)
-        self.tableData = res.data.tableData
+        self.tableData = self.defaultTable(res.data.tableData)
         self.network   = false
       }).catch(error => {
         console.log(error)
@@ -94,6 +94,32 @@ export default {
           self.$emit('logout')
         }
       })
+    },
+    defaultTable (data) {
+      let header = [
+        {
+          text: 'Data',
+          align: 'left',
+          sortable: false,
+          value: 'Data'
+        },
+        {
+          text: 'Value',
+          align: 'left',
+          sortable: false,
+          value: 'Value'
+        }
+      ]
+      let name = ['Avg', 'Q1', 'Median', 'Q3', 'Max', 'Min']
+      let table = []
+      for (let i of name) {
+        table.push({
+          Data: i,
+          Value: data[i]
+        })
+      }
+
+      return ({header: header, data: table})
     },
     defaultOption (datas, categories) {
       return {
@@ -149,14 +175,14 @@ export default {
         else if (x < y) return -1
         else return 0
       })
-      result.sort(function (x, y) {
+      result.sort((x, y) => {
         if (parseFloat(x[0]) > parseFloat(y[0])) return 1
         else if (parseFloat(x[0]) < parseFloat(y[0])) return -1
         else return 0
       })
       return result
     },
-    change: _.debounce(() => {
+    change: _.debounce(function () {
       this.start()
     }, 1000)
   }

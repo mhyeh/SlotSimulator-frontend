@@ -18,16 +18,7 @@
     <v-card>
       <v-card-text>
         <p v-if="error !== ''" class="ma-0">{{ error }}</p>
-        <v-data-table v-else-if="survivalRate.length !== 0"
-          v-bind:headers="header"
-          :items="survivalRate"
-        >
-          <template slot="items" scope="props">
-            <td>{{ props.item.id }}</td>
-            <td class="text-xs-right">{{ props.item.hand }}</td>
-            <td class="text-xs-right">{{ props.item.isSurvival }}</td>
-          </template>
-        </v-data-table>
+        <tables v-else-if="survivalRate.length !== 0" :options="survivalRate"></tables>
         <v-progress-circular indeterminate class="primary--text" v-else :size="50" style="width:100%;"></v-progress-circular>
       </v-card-text>
     </v-card>
@@ -77,7 +68,7 @@ export default {
       self.error = ''
       self.network = true
       api.survivalRate(localStorage.getItem('token'), self.$store.state.projectId.id, self.size).then(res => {
-        self.survivalRate = res.data
+        self.survivalRate = self.defaultTable(res.data)
         self.network = false
       }).catch(error => {
         console.log(error)
@@ -88,7 +79,40 @@ export default {
         }
       })
     },
-    change: _.debounce(() => {
+    defaultTable (data) {
+      let header = [
+        {
+          text: 'Run',
+          align: 'left',
+          sortable: false,
+          value: 'Run'
+        },
+        {
+          text: 'SpinCount',
+          align: 'left',
+          sortable: false,
+          value: 'SpinCount'
+        },
+        {
+          text: 'Ruin/Double',
+          align: 'left',
+          sortable: false,
+          value: 'Ruin/Double'
+        }
+      ]
+
+      let table = []
+      for (let i of data) {
+        table.push({
+          'Run': i.id,
+          'SpinCount': i.hand,
+          'Ruin/Double': i.isSurvival
+        })
+      }
+
+      return ({header: header, data: table})
+    },
+    change: _.debounce(function () {
       this.start()
     }, 1000)
   }

@@ -167,14 +167,14 @@ export default {
   methods: {
     getOthersInfoPageLink () {
       let self = this
+      while (self.lists.length > 3) {
+        self.lists.pop()
+      }
       api.getConfig(localStorage.getItem('token'), self.$store.state.projectId.id).then(res => {
         let pages = res.data.pages
         let items = []
         for (let i of pages) {
           items.push({ title: i.title })
-        }
-        while (self.lists.length > 3) {
-          self.lists.pop()
         }
         self.lists.push({
           action: 'mdi-chevron-down',

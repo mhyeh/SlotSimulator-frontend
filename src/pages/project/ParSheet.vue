@@ -4,7 +4,7 @@
       <v-card>
         <v-card-text>
           <p v-if="theoryError !== ''" class="ma-0">{{ '' }}</p>
-          <tables v-else-if="theory.length !== 0" :options="theory" theory="true" :name="title + ' Theory PAR Sheet'" style="display: flex"></tables>
+          <par-sheet v-else-if="theory.length !== 0" :options="theory" theory="true" :name="title + ' Theory PAR Sheet'" style="display: flex"></par-sheet>
           <v-progress-circular indeterminate class="primary--text" v-else :size="50" style="width:100%;"></v-progress-circular>
         </v-card-text>
       </v-card>
@@ -13,7 +13,7 @@
       <v-card>
         <v-card-text>
           <p v-if="simulationError !== ''" class="ma-0">{{ '' }}</p>
-          <tables v-else-if="simulation.length !== 0" :options="simulation" :name="title + ' Simulation PAR Sheet'" style="display: flex"></tables>
+          <par-sheet v-else-if="simulation.length !== 0" :options="simulation" :name="title + ' Simulation PAR Sheet'" style="display: flex"></par-sheet>
           <v-progress-circular indeterminate class="primary--text" v-else :size="50" style="width:100%;"></v-progress-circular>
         </v-card-text>
       </v-card>
