@@ -56,7 +56,7 @@ export default {
     return client.post('/account', {account: account, password: password})
   },
   register: function (account, password, checkPassword, name) {
-    return client.post('/account/register', {account: account, password: password, checkPassword, name})
+    return client.post('/account/register', {account: account, password: password, checkPassword: checkPassword, name: name})
   },
   getUserInfo: function (token) {
     return client.get('/account', { headers: {'Authorization': token} })
