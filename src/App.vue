@@ -18,7 +18,7 @@
       </v-toolbar>
     </template> 
     <template v-else>
-      <v-navigation-drawer app absolute persistent light  v-model="drawer" overflow class="grey lighten-2">
+      <v-navigation-drawer app absolute light  v-model="drawer" overflow class="grey lighten-2">
         <v-toolbar flat class="grey lighten-2">
           <v-list class="pa-0 grey lighten-2">
             <v-list-tile avatar tag="div">
