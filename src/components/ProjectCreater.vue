@@ -18,7 +18,7 @@
                   <v-text-field label="Block" type="number" min="1" max="5000" required v-model="block"></v-text-field>
                   <v-text-field label="Thread" type="number" min="1" max="1000" required v-model="thread"></v-text-field>
                   <v-text-field label="Run Time" type="number" min="1" max="1000000000" required v-model="runTime"></v-text-field>
-                  <file-input ref="file" label="Bonus Game Logic" @file="GameLogic"></file-input>
+                  <file-input ref="file" label="Game Logic" accept=".cu" @file="GameLogic"></file-input>
                 </v-flex>
               </v-flex>
               <v-flex xs5 pb-4>
