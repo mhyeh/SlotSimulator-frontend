@@ -18,20 +18,14 @@
                   <v-text-field label="Block" type="number" min="1" max="5000" required v-model="block"></v-text-field>
                   <v-text-field label="Thread" type="number" min="1" max="1000" required v-model="thread"></v-text-field>
                   <v-text-field label="Run Time" type="number" min="1" max="1000000000" required v-model="runTime"></v-text-field>
-                  <file-input ref="file" label="Game Logic" accept=".cu" @file="GameLogic"></file-input>
                 </v-flex>
               </v-flex>
               <v-flex xs5 pb-4>
                 <v-flex xs7>
-                  <v-select
-                    label="Project Type"
-                    required
-                    :items="items"
-                    v-model="typeId"
-                  ></v-select>
                   <v-text-field label="Rows" type="number" min="1" required v-model="rows"></v-text-field>
                   <v-text-field label="Reels" type="number" min="1" required v-model="reels"></v-text-field>
                   <v-text-field label="Bet Cost" type="number" min="1" required v-model="betCost"></v-text-field>
+                  <file-input ref="file" label="Game Logic" accept=".cu" @file="GameLogic"></file-input>
                 </v-flex>
               </v-flex>
               <v-flex xs1></v-flex>
@@ -76,11 +70,10 @@ import api from '../store/api'
 export default {
   data () {
     return {
-      formDatas: ['name', 'typeId', 'block', 'thread', 'runTime', 'rows', 'reels', 'betCost'],
+      formDatas: ['name', 'block', 'thread', 'runTime', 'rows', 'reels', 'betCost'],
       files: ['symbol', 'baseStops', 'bonusStops', 'attr', 'basePattern', 'bonusPattern', 'basePayTable', 'bonusPayTable'],
       edit: [true, false, false],
       name: 'Project1',
-      typeId: 1,
       block: 1000,
       thread: 1000,
       runTime: 4000000,
@@ -162,23 +155,7 @@ export default {
     },
     Config (file) {
       this.config = file
-    },
-    getProjectType () {
-      let self = this
-
-      self.items = []
-      api.getAllProjectType(localStorage.getItem('token')).then(res => {
-        for (let item of res.data) {
-          self.items.push({
-            text: item.name,
-            value: item.id
-          })
-        }
-      })
     }
-  },
-  mounted () {
-    this.getProjectType()
   }
 }
 </script>

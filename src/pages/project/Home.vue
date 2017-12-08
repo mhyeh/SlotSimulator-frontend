@@ -35,7 +35,7 @@ export default {
   },
   methods: {
     start () {
-      let showDatas = ['type', 'block', 'thread', 'runTime', 'reels', 'rows', 'betCost']
+      let showDatas = ['block', 'thread', 'runTime', 'reels', 'rows', 'betCost']
       let self = this
       let data = {}
       self.infoes = {
@@ -44,9 +44,6 @@ export default {
       self.error = ''
       api.getProject(localStorage.getItem('token'), self.$store.state.projectId.id).then(res => {
         data = res.data
-        return api.getProjectType(localStorage.getItem('token'), data.typeId)
-      }).then(res => {
-        data.type = res.data.name
         for (let showData of showDatas) {
           self.infoes[showData] = data[showData].toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')
         }
