@@ -151,7 +151,7 @@ export default {
       ],
       settings: [
         { title: 'Project Setting' },
-        { title: 'Upload File' }
+        { title: 'Delete Project' }
       ],
       name: ''
     }
@@ -184,12 +184,17 @@ export default {
       })
     },
     generate (title) {
-      if (title === 'Home') {
-        this.$router.push('/Account/')
+      let self = this
+      if (title === 'Delete Project') {
+        api.deleteProject(localStorage.getItem('token'), self.$store.state.projectId.id).then(() => {
+          self.$router.push('/Account/')
+        })
+      } else if (title === 'Home') {
+        self.$router.push('/Account/')
       } else if (title === 'DashBoard') {
-        this.$router.push('/Project/')
+        self.$router.push('/Project/')
       } else {
-        this.$router.push('/Project/' + title.replace(/\s+/g, ''))
+        self.$router.push('/Project/' + title.replace(/\s+/g, ''))
       }
     },
     changeProject (item) {
