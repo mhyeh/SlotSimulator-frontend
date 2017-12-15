@@ -5,7 +5,7 @@
         {{ error }}
       </v-card-text>
     </v-card>
-    <v-flex v-else-if="infoes.type !== ''" class="infoes pa-2" v-for="(value, key) in infoes" :key="key">
+    <v-flex v-else-if="infoes.block !== ''" class="infoes pa-2" v-for="(value, key) in infoes" :key="key">
       <v-card>
         <v-card-text>
           {{ key }}
@@ -39,7 +39,7 @@ export default {
       let self = this
       let data = {}
       self.infoes = {
-        type: ''
+        block: ''
       }
       self.error = ''
       api.getProject(localStorage.getItem('token'), self.$store.state.projectId.id).then(res => {
