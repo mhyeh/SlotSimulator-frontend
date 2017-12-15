@@ -78,6 +78,18 @@ export default {
   // getProjectType: function (token, id) {
   //   return client.get('/projectType/' + id, { headers: {'Authorization': token} })
   // },
+  updateProject: function (token, id, data) {
+    let config = {
+      headers: {
+        'Authorization': token,
+        'content-type': 'multipart/form-data'
+      }
+    }
+    return client.put('/project/' + id, data, config)
+  },
+  deleteProject: function (token, id) {
+    return client.delete('/project/' + id, { headers: {'Authorization': token} })
+  },
   getPARSheet: function (token, id, type) {
     return client.get('/analysisData/table/' + id + '/' + type, { headers: {'Authorization': token} })
   },
