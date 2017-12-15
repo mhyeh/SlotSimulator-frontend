@@ -2,17 +2,17 @@ let Promise = require('bluebird')
 
 let config = {
   simulationOutPutFileName: {
-    overallSimParSheet: 'overall',
-    baseSimParSheet: 'base',
-    bonusSimParSheet: 'bonus',
-    overallSpin: 'overallSpin',
-    baseSpin: 'baseSpin',
-    bonusSpin: 'bonusSpin',
-    survivalRate: 'survivalRate',
+    overallSimParSheet: 'parsheet1',
+    baseSimParSheet: 'parsheet2',
+    bonusSimParSheet: 'parsheet3',
+    overallSpin: 'spindata1',
+    baseSpin: 'spindata2',
+    bonusSpin: 'spindata3',
+    survivalRate: 'survivalrate',
     othersInfo: [
       {
         infoName: 'overall',
-        fileName: 'overallSpinRaw'
+        fileName: 'others0'
       }
     ]
   },
