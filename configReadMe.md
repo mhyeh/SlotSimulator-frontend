@@ -5,13 +5,59 @@
 ```javascript
 let Promise = require('bluebird')
 ```
-2. 宣告一個 config object，裡面有一個屬性是 pages
+2. 宣告一個 config object，裡面有一個屬性是 simulationOutPutFileName
+    - simulationOutPutFileName 是用來設定模擬完後的檔案名稱
+```javascript
+let Promise = require('bluebird')
+
+let config = {
+  simulationOutPutFileName: {
+  },
+}
+```
+3. simulationOutPutFileName 中需有以下屬性
+    - overallSimParSheet: overall 模擬結果的 PAR sheet
+    - baseSimParSheet: base game 模擬結果的 PAR sheet
+    - bonusSimParSheet: bonus game 模擬結果的 PAR sheet
+    - overallSpin: overall 的 Spin Data
+    - baseSpin: base game 的 Spin Data
+    - bonusSpin: bonus game 的 Spin Data
+    - survivalRate: 存活率分析的檔案
+    - othersInfo: 附加資訊的檔案
+  + 除了 othersInfo，其餘屬性的值皆為該檔案的檔名，若不需要此檔案則輸入 null
+  + othersInfo 是一個存放 object 的 array
+  + othersInfo 中每個 object 有2個屬性 
+    - infoName: 這個資料的名稱
+    - fileName: 這個資料的檔名
+```javascript
+let Promise = require('bluebird')
+
+let config = {
+  simulationOutPutFileName: {
+    overallSimParSheet: 'overall',
+    baseSimParSheet: 'base',
+    bonusSimParSheet: 'bonus',
+    overallSpin: 'overallSpin',
+    baseSpin: 'baseSpin',
+    bonusSpin: 'bonusSpin',
+    survivalRate: 'survivalRate',
+    othersInfo: [
+      {
+        infoName: 'overall',
+        fileName: 'overallSpinRaw'
+      }
+    ]
+  },
+}
+```
+4. 在 config 中加入 pages 屬性
     - pages 是一個存放 object 的 array
     - pages 中每個 object 只有一個 title 的屬性 
 ```javascript
 let Promise = require('bluebird')
 
 let config = {
+  simulationOutPutFileName: {},
   pages: [
     {
       title: 'Other Info 1'
@@ -24,7 +70,10 @@ let config = {
     - 每個設定都是一個 object
     - 每個設定的名稱要分別跟上面 pages 設定的 title 一樣，只差在要把空格去掉
 ```javascript
+let Promise = require('bluebird')
+
 let config = {
+  simulationOutPutFileName: {},
   pages: [
     {
       title: 'Other Info 1'
@@ -42,7 +91,10 @@ let config = {
         - name: binary file 的名稱
         - format: binary file 的格式
 ```javascript
+let Promise = require('bluebird')
+
 let config = {
+  simulationOutPutFileName: {},
   pages: [...],
   OtherInfo1: {
     data: [
@@ -74,6 +126,8 @@ let config = {
             - length: array 的長度
             - content: array 的內容，一個變數陣列
 ```javascript
+let Promise = require('bluebird')
+
 let config = {
   ...
   OtherInfo1: {
@@ -123,6 +177,8 @@ let config = {
         - min (for slider): 設定 silde 可設定的最小值
         - default (all): 設定預設值
 ```javascript
+let Promise = require('bluebird')
+
 let config = {
   ...
   OtherInfo1: {
@@ -175,6 +231,8 @@ let config = {
             - align: left 靠左，right 靠右
             - sortable: 可否用這個欄位排序
 ```javascript
+let Promise = require('bluebird')
+
 let config = {
   ...
   OtherInfo1: {
@@ -217,6 +275,8 @@ let config = {
     - 執行完後，在 resolve() 中放入 **需要在網頁上顯示的資料**
     - 如果原始資料 = 需要在網頁上顯示的資料，function 內就只要寫 resolve(<資料>)
 ```javascript
+let Promise = require('bluebird')
+
 let config = {
   ...
   OtherInfo1: {
@@ -240,6 +300,8 @@ let config = {
         - bindData: 上面設定的 renderData
     - 執行完後，在 resolve() 中放入 bindData
 ```javascript
+let Promise = require('bluebird')
+
 let config = {
   ...
   OtherInfo1: {
@@ -258,6 +320,8 @@ let config = {
 ```
 10. 照下面範例打 module.exports
 ```javascript
+let Promise = require('bluebird')
+
 let config = {
   ...
 }
