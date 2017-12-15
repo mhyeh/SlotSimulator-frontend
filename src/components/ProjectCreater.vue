@@ -25,7 +25,6 @@
                   <v-text-field label="Rows" type="number" min="1" required v-model="rows"></v-text-field>
                   <v-text-field label="Reels" type="number" min="1" required v-model="reels"></v-text-field>
                   <v-text-field label="Bet Cost" type="number" min="1" required v-model="betCost"></v-text-field>
-                  <file-input ref="file" label="Game Logic" accept=".cu" @file="GameLogic"></file-input>
                 </v-flex>
               </v-flex>
               <v-flex xs1></v-flex>
@@ -39,18 +38,17 @@
               <v-flex xs6 pb-4>
                 <v-flex xs6>
                   <file-input ref="file" label="Symbol" accept=".csv" @file="Symbols"></file-input>
-                  <file-input ref="file" label="BaseStops" accept=".csv" @file="BaseStops"></file-input>
-                  <file-input ref="file" label="BonusStops" accept=".csv" @file="BonusStops"></file-input>
+                  <file-input ref="file" label="Stops" accept=".csv" multiple @file="Stops"></file-input>
                   <file-input ref="file" label="Attributes" accept=".csv" @file="Attributes"></file-input>
-                  <file-input ref="file" label="Config" accept=".js" @file="Config"></file-input>
+                  <file-input ref="file" label="PayTable" accept=".csv" @file="PayTable"></file-input>
+                  
                 </v-flex>
               </v-flex>
               <v-flex xs5 pb-4>
                 <v-flex xs7>
-                  <file-input ref="file" label="BasePayTable" accept=".csv" @file="BasePayTable"></file-input>
-                  <file-input ref="file" label="BonusPayTable" accept=".csv" @file="BonusPayTable"></file-input>
-                  <file-input ref="file" label="BasePattern" accept=".csv" @file="BasePattern"></file-input>
-                  <file-input ref="file" label="BonusPattern" accept=".csv" @file="BonusPattern"></file-input>
+                  <file-input ref="file" label="Pattern" accept=".csv" multiple @file="Pattern"></file-input>
+                  <file-input ref="file" label="Config" accept=".js" @file="Config"></file-input>
+                  <file-input ref="file" label="Game Logic" accept=".cu" @file="GameLogic"></file-input>
                 </v-flex>
               </v-flex>
               <v-flex xs1></v-flex>
@@ -71,26 +69,22 @@ export default {
   data () {
     return {
       formDatas: ['name', 'block', 'thread', 'runTime', 'rows', 'reels', 'betCost'],
-      files: ['symbol', 'baseStops', 'bonusStops', 'attr', 'basePattern', 'bonusPattern', 'basePayTable', 'bonusPayTable'],
+      files: ['symbol', 'stops', 'attr', 'pattern', 'payTable'],
       edit: [true, false, false],
       name: 'Project1',
-      block: 1000,
-      thread: 1000,
+      block: 625,
+      thread: 160,
       runTime: 4000000,
       rows: 3,
       reels: 5,
       betCost: 25,
       symbol: null,
-      baseStops: null,
-      bonusStops: null,
+      stops: null,
       attr: null,
-      basePattern: null,
-      bonusPattern: null,
-      basePayTable: null,
-      bonusPayTable: null,
+      pattern: null,
+      payTable: null,
       config: null,
       gameLogic: null,
-      items: [],
       e1: 1,
       dialog: false
     }
@@ -104,14 +98,16 @@ export default {
       }
       for (let file of this.files) {
         if (this[file] !== null) {
-          form.append(file, this[file], this[file].name)
+          for (let i in this[file]) {
+            form.append(file, this[file][i], this[file][i].name)
+          }
         }
       }
       if (this.config !== null) {
-        form.append('config', this.config, this.config.name)
+        form.append('config', this.config[0], this.config[0].name)
       }
       if (this.gameLogic !== null) {
-        form.append('gameLogic', this.gameLogic, this.gameLogic.name)
+        form.append('gameLogic', this.gameLogic[0], this.gameLogic[0].name)
       }
       api.createProject(localStorage.getItem('token'), form).then(() => {
         self.$emit('reset')
@@ -129,23 +125,17 @@ export default {
     Symbols (file) {
       this.symbol = file
     },
-    BaseStops (file) {
-      this.baseStops = file
-    },
-    BonusStops (file) {
-      this.bonusStops = file
+    Stops (file) {
+      this.stops = file
     },
     Attributes (file) {
       this.attr = file
     },
-    BasePayTable (file) {
-      this.basePayTable = file
+    PayTable (file) {
+      this.payTable = file
     },
-    BonusPayTable (file) {
-      this.bonusPayTable = file
-    },
-    BasePattern (file) {
-      this.basePattern = file
+    Pattern (file) {
+      this.pattern = file
     },
     BonusPattern (file) {
       this.bonusPattern = file

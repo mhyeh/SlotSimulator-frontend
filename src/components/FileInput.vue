@@ -66,7 +66,7 @@ export default {
       } else {
         this.filename = $event.target.value.split('\\').pop()
       }
-      this.$emit('file', files[0])
+      this.$emit('file', files)
     }
   }
 }
