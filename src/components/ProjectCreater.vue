@@ -48,7 +48,7 @@
                 <v-flex xs7>
                   <file-input ref="file" label="Pattern" accept=".csv" multiple @file="Pattern"></file-input>
                   <file-input ref="file" label="Config" accept=".js" @file="Config"></file-input>
-                  <file-input ref="file" label="Game Logic" accept=".cu" @file="GameLogic"></file-input>
+                  <file-input ref="file" label="Game Logic" accept=".cu|.h" multiple @file="GameLogic"></file-input>
                 </v-flex>
               </v-flex>
               <v-flex xs1></v-flex>
@@ -106,8 +106,10 @@ export default {
       if (this.config !== null) {
         form.append('config', this.config[0], this.config[0].name)
       }
-      if (this.gameLogic !== null) {
-        form.append('gameLogic', this.gameLogic[0], this.gameLogic[0].name)
+      if (this.gameLogic !== null && this.gameLogic.length === 2) {
+        for (let i in this.gameLogic) {
+            form.append('gameLogic', this.gameLogic[i], this.gameLogic[i].name)
+          }
       }
       api.createProject(localStorage.getItem('token'), form).then(() => {
         self.$emit('reset')
