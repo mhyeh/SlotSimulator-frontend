@@ -19,7 +19,7 @@
         <v-text-field label="Bet Cost" type="number" min="1" required v-model="betCost"></v-text-field>
         <file-input ref="file" label="PayTable" accept=".csv" @file="PayTable"></file-input>
         <file-input ref="file" label="Pattern" accept=".csv" multiple @file="Pattern"></file-input>
-        <file-input ref="file" label="Game Logic" accept=".cu" @file="GameLogic"></file-input>
+        <file-input ref="file" label="Game Logic" accept=".cu|.h" multiple @file="GameLogic"></file-input>
         <file-input ref="file" label="Config" accept=".js" @file="Config"></file-input>
       </v-flex>
     </v-flex>
@@ -71,8 +71,10 @@ export default {
       if (this.config !== null) {
         form.append('config', this.config[0], this.config[0].name)
       }
-      if (this.gameLogic !== null) {
-        form.append('gameLogic', this.gameLogic[0], this.gameLogic[0].name)
+      if (this.gameLogic !== null && this.gameLogic.length === 2) {
+        for (let i in this.gameLogic) {
+            form.append('gameLogic', this.gameLogic[i], this.gameLogic[i].name)
+          }
       }
       api.updateProject(localStorage.getItem('token'), self.$store.state.projectId.id, form).then(() => {
         self.$router.push('/Project/')
