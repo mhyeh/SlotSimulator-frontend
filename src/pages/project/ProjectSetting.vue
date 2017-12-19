@@ -69,10 +69,10 @@ export default {
         }
       }
       if (this.config !== null) {
-        form.append('config', this.config[0].name)
+        form.append('config', this.config[0], this.config[0].name)
       }
       if (this.gameLogic !== null) {
-        form.append('gameLogic', this.gameLogic[0].name)
+        form.append('gameLogic', this.gameLogic[0], this.gameLogic[0].name)
       }
       api.updateProject(localStorage.getItem('token'), self.$store.state.projectId.id, form).then(() => {
         self.$router.push('/Project/')

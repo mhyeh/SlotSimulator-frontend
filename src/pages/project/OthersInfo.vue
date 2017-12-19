@@ -120,10 +120,14 @@ export default {
       self.network = true
       self.data = null
 
-      for (let item of self.config.settingItem) {
-        settings[item.name] = item.value
+      if (self.config.settingItem !== undefined) {
+        for (let item of self.config.settingItem) {
+          settings[item.name] = item.value
+        }
+        config.setting = settings
+      } else {
+        config.setting = ''
       }
-      config.setting = settings
       api.getOthersData(localStorage.getItem('token'), self.$store.state.projectId.id, config).then(res => {
         self.data    = res.data
         self.network = false
