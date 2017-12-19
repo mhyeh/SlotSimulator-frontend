@@ -34,17 +34,17 @@ let Promise = require('bluebird')
 
 let config = {
   simulationOutPutFileName: {
-    overallSimParSheet: 'parsheet1',
-    baseSimParSheet: 'parsheet2',
-    bonusSimParSheet: 'parsheet3',
-    overallSpin: 'spindata1',
-    baseSpin: 'spindata2',
-    bonusSpin: 'spindata3',
-    survivalRate: 'survivalrate',
+    overallSimParSheet: '0PARSheet',
+    baseSimParSheet: '1PARSheet',
+    bonusSimParSheet: null,
+    overallSpin: '0SpinData',
+    baseSpin: '1SpinData',
+    bonusSpin: null,
+    survivalRate: '0Survival',
     othersInfo: [
       {
         infoName: 'overall',
-        fileName: 'others0'
+        fileName: '0Exterainfo.bin'
       }
     ]
   },
@@ -88,7 +88,7 @@ let config = {
     - data 是一個存放 object 的 array
     - data 是用來設定需要的 binary file 的 data format
     - 每個 data 的 object 有 2 個屬性
-        - name: binary file 的名稱
+        - name: 資料的名稱，與上面 simulationOutPutFileName 的 othersInfo 的 infoName 一樣
         - format: binary file 的格式
 ```javascript
 let Promise = require('bluebird')
@@ -114,8 +114,10 @@ let config = {
     - 每個變數有 2 個屬性
         - name: 變數的名稱
         - type: 變數的類型
-    - 變數目前有 5 個類型
+    - 變數目前有 7 個類型
         - int: 4bytes
+        - lli: long long int, 8bytes
+        - ull: unsigned long long, 8bytes
         - double: 8bytes 
         - string: 1byte * string length
             - string 要多設定一個 length 屬性
