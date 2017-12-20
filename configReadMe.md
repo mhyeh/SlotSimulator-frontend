@@ -65,7 +65,7 @@ let config = {
   ]
 }
 ```
-3. 在 pages 下面加入每個頁面自己的設定
+5. 在 pages 下面加入每個頁面自己的設定
     - 這些設定的數量需與 pages 中 object 的數量相同
     - 每個設定都是一個 object
     - 每個設定的名稱要分別跟上面 pages 設定的 title 一樣，只差在要把空格去掉
@@ -84,7 +84,7 @@ let config = {
   }
 }
 ```
-4. 在每個頁中加入 data 屬性
+6. 在每個頁中加入 data 屬性
     - data 是一個存放 object 的 array
     - data 是用來設定需要的 binary file 的 data format
     - 每個 data 的 object 有 2 個屬性
@@ -108,7 +108,7 @@ let config = {
   }
 }
 ```
-5. 設定 format
+7. 設定 format
     - format 是一個存放 object 的 array
     - 每個 object 代表一個變數
     - 每個變數有 2 個屬性
@@ -164,7 +164,7 @@ let config = {
   }
 }
 ```
-6. 在每個頁中加入 settingItem 屬性 (可選)
+8. 在每個頁中加入 settingItem 屬性 (可選)
     - settingItem 是一個存放 object 的 array
     - settingItem 用來設定網頁上的控制選項
     - 每個 settingItem 中的 object 有 3 個屬性
@@ -217,7 +217,7 @@ let config = {
   }
 }
 ```
-7. 在每個頁中加入 renderData 屬性
+9. 在每個頁中加入 renderData 屬性
     - renderData 是一個存放 object 的 array
     - renderData 是用來設定在網頁上要顯示的資料
     - 每個 renderData 中的 object 有 2 個屬性
@@ -268,7 +268,7 @@ let config = {
   }
 }
 ```
-8. 加入 getData function
+10. 加入 getData function
     - getData 必須使用 Promise
     - getData 是用來把 **原始的資料** 轉換成 **需要在網頁上顯示的資料**
     - 傳入參數: data 跟 setting
@@ -294,7 +294,7 @@ let config = {
   }
 }
 ```
-9. 加入 process function
+11. 加入 process function
     - process 必須使用 Promise
     - process 是用來把 **需要在網頁上顯示的資料** 處理後，放入 **renderData 的指定位置**
     - 傳入參數: data 跟 bindData
@@ -320,7 +320,7 @@ let config = {
   }
 }
 ```
-10. 照下面範例打 module.exports
+12. 照下面範例打 module.exports
 ```javascript
 let Promise = require('bluebird')
 
