@@ -45,6 +45,8 @@ export default {
   methods: {
     start () {
       let self = this
+      self.simulationError = ''
+      self.theoryError = ''
       api.getPARSheet(localStorage.getItem('token'), self.$store.state.projectId.id, this.table + 'Sim').then(res => {
         papaparse.parse(res.data.table, {
           complete: function (result) {
