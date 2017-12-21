@@ -1,9 +1,5 @@
 import axois from 'axios'
-
-let config = {
-  baseURL: 'https://slot.dacsc.club',
-  timeout: 120000000
-}
+import config from './config.json'
 
 let client = axois.create(config)
 
@@ -76,11 +72,23 @@ export default {
   getProject: function (token, id) {
     return client.get('/project/' + id, { headers: {'Authorization': token} })
   },
-  getAllProjectType: function (token) {
-    return client.get('/projectType/', { headers: {'Authorization': token} })
+  // getAllProjectType: function (token) {
+  //   return client.get('/projectType/', { headers: {'Authorization': token} })
+  // },
+  // getProjectType: function (token, id) {
+  //   return client.get('/projectType/' + id, { headers: {'Authorization': token} })
+  // },
+  updateProject: function (token, id, data) {
+    let config = {
+      headers: {
+        'Authorization': token,
+        'content-type': 'multipart/form-data'
+      }
+    }
+    return client.put('/project/' + id, data, config)
   },
-  getProjectType: function (token, id) {
-    return client.get('/projectType/' + id, { headers: {'Authorization': token} })
+  deleteProject: function (token, id) {
+    return client.delete('/project/' + id, { headers: {'Authorization': token} })
   },
   getPARSheet: function (token, id, type) {
     return client.get('/analysisData/table/' + id + '/' + type, { headers: {'Authorization': token} })
